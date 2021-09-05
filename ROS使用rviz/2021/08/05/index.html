@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>ROS使用rviz | 战麟</title>
+  <meta name="author" content="战麟" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="Linux, ROS" />
+  
+  <meta name="description" content="ROS使用rviz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS使用rviz">
+<meta property="og:url" content="http://540060348.github.io/ROS%E4%BD%BF%E7%94%A8rviz/2021/08/05/index.html">
+<meta property="og:site_name" content="战麟">
+<meta property="og:description" content="ROS使用rviz">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://540060348.github.io/null">
+<meta property="article:published_time" content="2021-08-05T13:40:23.000Z">
+<meta property="article:modified_time" content="2021-08-16T15:03:30.038Z">
+<meta property="article:author" content="战麟">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="ROS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://540060348.github.io/null">
+<meta name="twitter:site" content="@null">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/night-eighties.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/friends/"><i class="fa fa-paw"></i>好伙伴</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a href="/%E6%88%98%E9%BA%9F">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a href="https://540060348.github.io/">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">战麟</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>战麟</h2> <br />
+                        <span>山川异域，不共戴天</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        
+
+            <section class="col-lg-8 col-md-12">
+
+        
+
+            <article>
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            
+                <h1 class="kratos-entry-title text-center">ROS使用rviz</h1>
+            
+            
+            <ul class="kratos-post-meta text-center">
+                <li><i class="fa fa-calendar"></i> 2021-08-05</li>
+                <li><i class="fa fa-user"></i> 作者 战麟</li>
+                <li>
+                    <i class="fa fa-edit"></i> 
+                    
+                    
+                        ~3.85K
+                    
+                    字
+                </li>
+                
+            </ul>
+        </header>
+        <div class="kratos-post-content">
+            <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                本文最后编辑于 <time datetime="1629126210038"></time> 前，其中的内容可能需要更新。
+            </div>
+            
+            <hr />
+            <h1><span id="ros使用rviz">ROS使用rviz</span></h1><span id="more"></span>
+
+<!-- toc -->
+
+<ul>
+<li><a href="#rviz%E4%BD%9C%E7%94%A8">rviz作用</a></li>
+<li><a href="#rviz%E5%90%AF%E5%8A%A8">rviz启动</a></li>
+<li><a href="#rviz%E4%BD%BF%E7%94%A8">rviz使用</a></li>
+<li><a href="#%E7%A8%8B%E5%BA%8F%E6%B5%8B%E8%AF%95">程序测试</a><ul>
+<li><a href="#%E7%BC%96%E8%AF%91">编译</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8C">运行</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<p>更多参考：<a target="_blank" rel="noopener" href="http://wiki.ros.org/rviz/UserGuide">http://wiki.ros.org/rviz/UserGuide</a></p>
+<h2><span id="rviz作用">rviz作用</span></h2><p>rviz相当于一个消息订阅者，可以将消息进行可视化显示</p>
+<h2><span id="rviz启动">rviz启动</span></h2><p>必须先启动roscore，然后再启动rviz</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun rviz rviz</span><br></pre></td></tr></table></figure>
+
+<p><img src="/ROS%E4%BD%BF%E7%94%A8rviz/2021/08/05/image-20210805214747951.png" alt="界面"></p>
+<h2><span id="rviz使用">rviz使用</span></h2><p>点击界面左下方的 <code>add</code> ,出现添加可视化物体的选项框</p>
+<p><img src="/ROS%E4%BD%BF%E7%94%A8rviz/2021/08/05/image-20210805215315399.png" alt="添加"></p>
+<p>选择 <code>Marker</code> ，点击 <code>OK</code> ，界面左边将会增加一个Marker</p>
+<p><img src="/ROS%E4%BD%BF%E7%94%A8rviz/2021/08/05/image-20210805215648889.png" alt="Marker"></p>
+<p>至此，在rviz中创建了一个subscriber，他目前接受并显示来自visualization_marker话题的消息</p>
+<p>Marker是一个用来标记的东西，给定marker一个position和orientation（位置和姿态），那么rviz就会在中间画图区域的指定位置生成一个指定方向的marker</p>
+<h2><span id="程序测试">程序测试</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/src</span><br><span class="line">gedit pub_marker_msgs.cpp</span><br></pre></td></tr></table></figure>
+
+<p>pub_marker_msgs.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;geometry_msgs/PoseStamped.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;visualization_msgs/Marker.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MarkerPublisher</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">MarkerPublisher</span>(ros::NodeHandle&amp; nh)</span><br><span class="line">	&#123;</span><br><span class="line">		pub_marker_ = nh.advertise&lt;visualization_msgs::Marker&gt;(<span class="string">&quot;visualization_marker&quot;</span>, <span class="number">10</span>);<span class="comment">//initialize marker publisher</span></span><br><span class="line">		<span class="built_in">set_marker_fixed_property</span>();</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PoseCallback</span><span class="params">(<span class="keyword">const</span> geometry_msgs::PoseStamped::ConstPtr&amp; msg)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">/*Publish Marker message to rviz when receive PoseStamped*/</span></span><br><span class="line">		<span class="built_in">ROS_INFO</span>(<span class="string">&quot;I heard the pose from the robot&quot;</span>); </span><br><span class="line">		<span class="built_in">ROS_INFO</span>(<span class="string">&quot;the position(x,y,z) is %f , %f, %f&quot;</span>, msg-&gt;pose.position.x, msg-&gt;pose.position.y, msg-&gt;pose.position.z);</span><br><span class="line">		<span class="built_in">ROS_INFO</span>(<span class="string">&quot;the orientation(x,y,z,w) is %f , %f, %f, %f&quot;</span>, msg-&gt;pose.orientation.x, msg-&gt;pose.orientation.y, msg-&gt;pose.orientation.z, msg-&gt;pose.orientation.w);</span><br><span class="line">		<span class="built_in">ROS_INFO</span>(<span class="string">&quot;the time we get the pose is %f&quot;</span>,  msg-&gt;header.stamp.sec + <span class="number">1e-9</span>*msg-&gt;header.stamp.nsec);</span><br><span class="line">		<span class="built_in">ROS_INFO</span>(<span class="string">&quot;header.stamp.seq:%d \t\theader.stamp.frame_id:%s&quot;</span>,  msg-&gt;header.seq, msg-&gt;header.frame_id.<span class="built_in">c_str</span>());</span><br><span class="line"></span><br><span class="line">		count_++;</span><br><span class="line">		marker_.ns = <span class="string">&quot;my_namespace&quot;</span>;</span><br><span class="line">		marker_.id = count_;</span><br><span class="line">		</span><br><span class="line">		marker_.header.stamp = ros::<span class="built_in">Time</span>();</span><br><span class="line">		marker_.pose = msg-&gt;pose;</span><br><span class="line"></span><br><span class="line">		pub_marker_.<span class="built_in">publish</span>(marker_);</span><br><span class="line">		<span class="built_in">ROS_INFO</span>(<span class="string">&quot;I publish marker_&quot;</span>); </span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set_marker_fixed_property</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">/*decide from which view we can see the marker*/</span></span><br><span class="line">		marker_.header.frame_id = <span class="string">&quot;map&quot;</span>;</span><br><span class="line">		<span class="comment">/*set marker type*/</span></span><br><span class="line">		marker_.type = visualization_msgs::Marker::SPHERE;</span><br><span class="line">		<span class="comment">/*decide if the marker will be enlarge*/</span></span><br><span class="line">		marker_.scale.x = <span class="number">1</span>;</span><br><span class="line">		marker_.scale.y = <span class="number">0.1</span>;</span><br><span class="line">		marker_.scale.z = <span class="number">0.3</span>;</span><br><span class="line">		<span class="comment">/*decide the color of the marker*/</span></span><br><span class="line">		marker_.color.a = <span class="number">1.0</span>; <span class="comment">// Don&#x27;t forget to set the alpha!</span></span><br><span class="line">		marker_.color.r = <span class="number">0.0</span>;</span><br><span class="line">		marker_.color.g = <span class="number">1.0</span>;</span><br><span class="line">		marker_.color.b = <span class="number">0.0</span>;</span><br><span class="line">		<span class="comment">/*set marker action*/</span></span><br><span class="line">		marker_.action = visualization_msgs::Marker::ADD;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	ros::Publisher  pub_marker_;</span><br><span class="line">	visualization_msgs::Marker marker_;</span><br><span class="line">	<span class="keyword">int</span> count_ = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;marker_worker&quot;</span>);</span><br><span class="line"></span><br><span class="line">	ros::NodeHandle n;</span><br><span class="line"></span><br><span class="line">	<span class="function">MarkerPublisher <span class="title">mp</span><span class="params">(n)</span></span>;</span><br><span class="line"></span><br><span class="line">	ros::Subscriber sub_pose   = n.<span class="built_in">subscribe</span>(<span class="string">&quot;chatterPoseStamped&quot;</span>, <span class="number">100</span>, &amp;MarkerPublisher::PoseCallback, &amp;mp);</span><br><span class="line"></span><br><span class="line">	ros::<span class="built_in">spin</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序的作用是接收chatterPoseStamped话题的消息，然后通过 <code>visualization_msgs::Marker</code> 发布出来，这样rviz中的Marker接收到消息就可以显示出来了</p>
+<p><strong>知识点：</strong></p>
+<ol>
+<li>程序中的 <code>spub_marker_ = nh.advertise&lt;visualization_msgs::Marker&gt;(&quot;visualization_marker&quot;, 10)</code> 发布的消息话题应为rviz中左侧Displays窗口中Marker&gt;&gt; Marker Topic的值</li>
+<li>程序中的 <code>set_marker_fixed_property()</code> 设置了Marker的一些基本属性</li>
+<li>程序中的 <code>marker_.header.frame_id</code> 的值需要等于rviz中左侧Displays窗口中Global Options&gt;&gt; Fixed Frame的值</li>
+</ol>
+<h3><span id="编译">编译</span></h3><p>编辑 <code>CMakeLists.txt</code> 文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/</span><br><span class="line">gedit CMakeLists.txt</span><br></pre></td></tr></table></figure>
+
+<p>CMakeLists.txt中添加</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add_executable(pub_marker_msgs src/pub_marker_msgs.cpp)</span><br><span class="line">target_link_libraries(pub_marker_msgs $&#123;catkin_LIBRARIES&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>编译</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
+
+<h3><span id="运行">运行</span></h3><h4><span id="第一个终端">第一个终端</span></h4><p>启动roscore</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
+
+<h4><span id="第二个终端">第二个终端</span></h4><p>启动rviz</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun rviz rviz</span><br></pre></td></tr></table></figure>
+
+<p>然后按照之前的方式添加一个Marker</p>
+<h4><span id="第三个终端">第三个终端</span></h4><p>启动pub_marker_msgs节点</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">rosrun pub_sub_test pub_marker_msgs</span><br></pre></td></tr></table></figure>
+
+<p>这个节点是转发功能，还需要有消息源</p>
+<h4><span id="第四个终端">第四个终端</span></h4><p>启动pub_posestamped</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">rosrun pub_sub_test pub_posestamped</span><br></pre></td></tr></table></figure>
+
+<p>之后，将会在rviz界面上看到有Marker生成</p>
+<p><img src="/ROS%E4%BD%BF%E7%94%A8rviz/2021/08/05/image-20210806220244194.png" alt="效果"></p>
+
+        </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+                <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                
+                    <a class="donate" href="javascript:;"><i class="fa fa-bitcoin"></i> 打赏</a>
+                
+                
+                    <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                    <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://540060348.github.io/ROS%E4%BD%BF%E7%94%A8rviz/2021/08/05/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://540060348.github.io/ROS%E4%BD%BF%E7%94%A8rviz/2021/08/05/";
+            const title         = "「ROS使用rviz」";
+            const excerpt       = `ROS使用rviz`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/ROS/" rel="tag">ROS</a>
+                </div>
+                <div class="pull-date">
+                <span>最后编辑：2021-08-16</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" ROS使用rosbag" href="/ROS使用rosbag/2021/08/04/">&lt; 上一篇</a>
+            </div>
+            
+            
+            <div class="nav-next clearfix">
+                <a title=" ROS使用tf追踪不同坐标系" href="/ROS使用tf追踪不同坐标系/2021/08/08/">下一篇 &gt;</a>
+            </div>
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+        
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/touxiang.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">做个俗人，贪财好色</p>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/Aircrack-ng/" style="font-size: 0.6em;">Aircrack-ng</a> <a href="/tags/Hexo/" style="font-size: 0.7em;">Hexo</a> <a href="/tags/Linux/" style="font-size: 0.8em;">Linux</a> <a href="/tags/Python/" style="font-size: 0.65em;">Python</a> <a href="/tags/Qt/" style="font-size: 0.6em;">Qt</a> <a href="/tags/ROS/" style="font-size: 0.75em;">ROS</a> <a href="/tags/Ubuntu/" style="font-size: 0.7em;">Ubuntu</a> <a href="/tags/VM/" style="font-size: 0.6em;">VM</a> <a href="/tags/Wifi%E7%A0%B4%E8%A7%A3/" style="font-size: 0.6em;">Wifi破解</a> <a href="/tags/git/" style="font-size: 0.6em;">git</a> <a href="/tags/%E4%B8%B2%E5%8F%A3/" style="font-size: 0.6em;">串口</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 0.6em;">微信小程序</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 0.6em;">树莓派</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 0.6em;">硬件</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.6em;">算法</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B8%85%E5%8D%95/" style="font-size: 0.6em;">软件清单</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/Ubuntu18%E4%BF%AE%E6%94%B9%E7%BD%91%E5%8D%A1Mac%E5%9C%B0%E5%9D%80/2021/09/05/"><i class="fa  fa-book"></i> Ubuntu18修改网卡Mac地址</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/"><i class="fa  fa-book"></i> Ubuntu18使用Aircrack-ng破解WiFi</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/%E8%BA%AB%E4%BB%BD%E8%AF%81%E5%8F%B7%E7%A0%81%E7%AE%97%E6%B3%95/2021/08/22/"><i class="fa  fa-book"></i> 身份证号码算法</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/Linux%E4%B8%8B%E9%80%9A%E8%BF%87%E8%B7%AF%E5%BE%84%E6%9F%A5%E6%89%BE%E4%B8%B2%E5%8F%A3%E5%8F%B7/2021/08/21/"><i class="fa  fa-book"></i> Linux下通过路径查找串口号</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2021/08/19/"><i class="fa  fa-book"></i> 微信小程序开发环境搭建</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        <li><a href="mailto:540060348@qq.com"><i class="fa fa-envelope"></i></a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/540060348"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2021 战麟 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by 战麟.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="playlist"
+        id="3204190542"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.all.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>

