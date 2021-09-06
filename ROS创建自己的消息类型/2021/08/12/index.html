@@ -24,7 +24,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://540060348.github.io/null">
 <meta property="article:published_time" content="2021-08-12T13:00:46.000Z">
-<meta property="article:modified_time" content="2021-08-16T15:04:48.772Z">
+<meta property="article:modified_time" content="2021-09-06T14:55:20.252Z">
 <meta property="article:author" content="战麟">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="ROS">
@@ -159,7 +159,7 @@
                     <i class="fa fa-edit"></i> 
                     
                     
-                        ~1.96K
+                        ~1.97K
                     
                     字
                 </li>
@@ -168,7 +168,7 @@
         </header>
         <div class="kratos-post-content">
             <div id="expire-alert" class="alert alert-warning hidden" role="alert">
-                本文最后编辑于 <time datetime="1629126288772"></time> 前，其中的内容可能需要更新。
+                本文最后编辑于 <time datetime="1630940120252"></time> 前，其中的内容可能需要更新。
             </div>
             
             <hr />
@@ -178,8 +178,8 @@
 
 <ul>
 <li><a href="#%E5%88%9B%E5%BB%BAmsg%E6%96%87%E4%BB%B6">创建msg文件</a></li>
-<li><a href="#%E4%BF%AE%E6%94%B9cmakelixttxt">修改CMakeLixt.txt</a></li>
-<li><a href="#%E4%BF%AE%E6%94%B9packagexml">修改package.xml</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9cmakelixttxt%E6%96%87%E4%BB%B6">修改CMakeLixt.txt文件</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9packagexml%E6%96%87%E4%BB%B6">修改package.xml文件</a></li>
 <li><a href="#%E5%88%9B%E5%BB%BA%E7%A8%8B%E5%BA%8F">创建程序</a></li>
 <li><a href="#%E8%BF%90%E8%A1%8C">运行</a><ul>
 <li><a href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%88%E7%AB%AF">第一个终端</a></li>
@@ -198,10 +198,10 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string message_string</span><br><span class="line">int8 message_int8</span><br><span class="line">float64[] message_float64_vector</span><br></pre></td></tr></table></figure>
 
 <p><code>.msg</code> 文件格式为 <code>成员类型 自定义成员名字</code> </p>
-<h2><span id="修改cmakelixttxt">修改CMakeLixt.txt</span></h2><p>添加依赖包和消息文件</p>
+<h2><span id="修改cmakelixttxt文件">修改CMakeLixt.txt文件</span></h2><p>添加依赖包和消息文件</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">find_package(catkin REQUIRED COMPONENTS</span><br><span class="line">  roscpp</span><br><span class="line">  rospy</span><br><span class="line">  std_msgs</span><br><span class="line">  geometry_msgs</span><br><span class="line">  message_generation	<span class="comment">#添加一个依赖包</span></span><br><span class="line">)</span><br><span class="line">...</span><br><span class="line">add_message_files(</span><br><span class="line">  FILES</span><br><span class="line">  MyMessage.msg			<span class="comment">#添加消息文件</span></span><br><span class="line">)</span><br><span class="line">...</span><br><span class="line">generate_messages(</span><br><span class="line">  DEPENDENCIES</span><br><span class="line">  std_msgs				<span class="comment">#添加生成消息需要的依赖包</span></span><br><span class="line">)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<h2><span id="修改packagexml">修改package.xml</span></h2><p>将生成消息需要的依赖环境注释去除</p>
+<h2><span id="修改packagexml文件">修改package.xml文件</span></h2><p>将生成消息需要的依赖环境注释去除</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span> </span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">build_export_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_export_depend</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span> </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
 <h2><span id="创建程序">创建程序</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/src</span><br><span class="line">gedit pub_mymessage.cpp</span><br></pre></td></tr></table></figure>
@@ -305,7 +305,7 @@
                     <a class="tag-none-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/ROS/" rel="tag">ROS</a>
                 </div>
                 <div class="pull-date">
-                <span>最后编辑：2021-08-16</span>
+                <span>最后编辑：2021-09-06</span>
                 </div>
             </div>
         </footer>
@@ -375,6 +375,18 @@
         
           
           
+            <a class="list-group-item" href="/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/2021/09/06/"><i class="fa  fa-book"></i> ROS服务提供与调用（二）</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/2021/09/05/"><i class="fa  fa-book"></i> ROS服务提供与调用（一）</a>
+            
+          
+        
+          
+          
             <a class="list-group-item" href="/Ubuntu18%E4%BF%AE%E6%94%B9%E7%BD%91%E5%8D%A1Mac%E5%9C%B0%E5%9D%80/2021/09/05/"><i class="fa  fa-book"></i> Ubuntu18修改网卡Mac地址</a>
             
           
@@ -392,17 +404,9 @@
           
         
           
-          
-            <a class="list-group-item" href="/Linux%E4%B8%8B%E9%80%9A%E8%BF%87%E8%B7%AF%E5%BE%84%E6%9F%A5%E6%89%BE%E4%B8%B2%E5%8F%A3%E5%8F%B7/2021/08/21/"><i class="fa  fa-book"></i> Linux下通过路径查找串口号</a>
             
           
-        
-          
-          
-            <a class="list-group-item" href="/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2021/08/19/"><i class="fa  fa-book"></i> 微信小程序开发环境搭建</a>
             
-          
-        
           
             
           

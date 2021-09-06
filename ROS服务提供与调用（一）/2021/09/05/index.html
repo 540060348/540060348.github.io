@@ -4,7 +4,7 @@
   <!-- 元数据 -->
   <meta charset="utf-8">
   <link rel="icon" href="">
-  <title>Ubuntu18安装ROS | 战麟</title>
+  <title>ROS服务提供与调用（一） | 战麟</title>
   <meta name="author" content="战麟" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -13,22 +13,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="Linux, ROS, Ubuntu" />
+    <meta name="keywords" content="Linux, ROS" />
   
-  <meta name="description" content="Ubuntu18安装ROS">
+  <meta name="description" content="ROS服务提供与调用（一）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu18安装ROS">
-<meta property="og:url" content="http://540060348.github.io/Ubuntu18%E5%AE%89%E8%A3%85ROS/2021/07/26/index.html">
+<meta property="og:title" content="ROS服务提供与调用（一）">
+<meta property="og:url" content="http://540060348.github.io/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/2021/09/05/index.html">
 <meta property="og:site_name" content="战麟">
-<meta property="og:description" content="Ubuntu18安装ROS">
+<meta property="og:description" content="ROS服务提供与调用（一）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://540060348.github.io/null">
-<meta property="article:published_time" content="2021-07-26T11:25:16.000Z">
-<meta property="article:modified_time" content="2021-08-04T12:33:44.606Z">
+<meta property="article:published_time" content="2021-09-05T12:15:17.000Z">
+<meta property="article:modified_time" content="2021-09-06T15:10:47.842Z">
 <meta property="article:author" content="战麟">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="ROS">
-<meta property="article:tag" content="Ubuntu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://540060348.github.io/null">
 <meta name="twitter:site" content="@null">
@@ -150,17 +149,17 @@
     <div class="kratos-hentry kratos-post-inner clearfix">
         <header class="kratos-entry-header">
             
-                <h1 class="kratos-entry-title text-center">Ubuntu18安装ROS</h1>
+                <h1 class="kratos-entry-title text-center">ROS服务提供与调用（一）</h1>
             
             
             <ul class="kratos-post-meta text-center">
-                <li><i class="fa fa-calendar"></i> 2021-07-26</li>
+                <li><i class="fa fa-calendar"></i> 2021-09-05</li>
                 <li><i class="fa fa-user"></i> 作者 战麟</li>
                 <li>
                     <i class="fa fa-edit"></i> 
                     
                     
-                        ~2.38K
+                        ~2.41K
                     
                     字
                 </li>
@@ -169,92 +168,55 @@
         </header>
         <div class="kratos-post-content">
             <div id="expire-alert" class="alert alert-warning hidden" role="alert">
-                本文最后编辑于 <time datetime="1628080424606"></time> 前，其中的内容可能需要更新。
+                本文最后编辑于 <time datetime="1630941047842"></time> 前，其中的内容可能需要更新。
             </div>
             
             <hr />
-            <h1><span id="ubuntu18安装ros">Ubuntu18安装ROS</span></h1><span id="more"></span>
+            <h1><span id="ros服务提供与调用一">ROS服务提供与调用（一）</span></h1><span id="more"></span>
 
 <!-- toc -->
 
 <ul>
-<li><a href="#%E9%85%8D%E7%BD%AE%E8%BD%AF%E4%BB%B6%E4%BB%93%E5%BA%93">配置软件仓库</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85ros">安装ROS</a><ul>
-<li><a href="#%E6%9B%B4%E6%96%B0%E5%AE%89%E8%A3%85%E5%88%97%E8%A1%A8">更新安装列表</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85ros">安装ros</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85python-rosdep2">安装python-rosdep2</a></li>
-<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96rosdep">初始化rosdep</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85python-rosinstall">安装python-rosinstall</a></li>
-</ul>
-</li>
-<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96">初始化</a><ul>
-<li><a href="#%E5%8A%A0%E8%BD%BD%E7%8E%AF%E5%A2%83">加载环境</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E5%B9%B6%E5%88%9D%E5%A7%8B%E5%8C%96">创建工作目录并初始化</a></li>
-<li><a href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE">构建项目</a></li>
-<li><a href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">设置环境变量</a></li>
-</ul>
-</li>
-<li><a href="#ros%E6%B5%8B%E8%AF%95">ROS测试</a><ul>
-<li><a href="#%E8%BF%90%E8%A1%8Crosdemo">运行ROSdemo</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%A8%8B%E5%BA%8F">创建程序</a></li>
+<li><a href="#%E7%BC%96%E8%AF%91">编译</a></li>
+<li><a href="#%E6%89%A7%E8%A1%8C">执行</a><ul>
+<li><a href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%88%E7%AB%AF">第一个终端</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E7%BB%88%E7%AB%AF">第二个终端</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E7%BB%88%E7%AB%AF">第三个终端</a></li>
 </ul>
 </li>
 </ul>
 <!-- tocstop -->
 
-<h2><span id="配置软件仓库">配置软件仓库</span></h2><p>打开 <code>软件和更新</code> &gt;&gt; <code>Ubuntu软件</code> ，可从互联网下载的选项全部勾选，关闭</p>
-<p><img src="/Ubuntu18%E5%AE%89%E8%A3%85ROS/2021/07/26/image-20210726193325011.png" alt="Ubuntu软件"></p>
-<p>控制台添加sources.list</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c <span class="string">&#x27;echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="创建程序">创建程序</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/src</span><br><span class="line">gedit ros_server.cpp</span><br><span class="line">gedit ros_client.cpp</span><br></pre></td></tr></table></figure>
 
-<p>添加keys</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver <span class="string">&#x27;hkp://keyserver.ubuntu.com:80&#x27;</span> --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654</span><br></pre></td></tr></table></figure>
+<p>ros_server.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;std_srvs/Trigger.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建服务回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">commandCallback</span><span class="params">(std_srvs::Trigger::Request &amp;req,</span></span></span><br><span class="line"><span class="params"><span class="function">					std_srvs::Trigger::Response &amp;res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//显示当前状态数据</span></span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;Get Request&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置反馈数据</span></span><br><span class="line">	res.success = <span class="literal">true</span>;</span><br><span class="line">	res.message = <span class="string">&quot;Got Request and Return Response&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//初始化节点</span></span><br><span class="line">	ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;ros_server&quot;</span>);</span><br><span class="line">	<span class="comment">//创建句柄</span></span><br><span class="line">	ros::NodeHandle n;</span><br><span class="line">	<span class="comment">//创建/ros_service_test服务，注册回调函数</span></span><br><span class="line">	ros::ServiceServer commandService = n.<span class="built_in">advertiseService</span>(<span class="string">&quot;/ros_service_test&quot;</span>, commandCallback);</span><br><span class="line">	</span><br><span class="line">	<span class="function">ros::Rate <span class="title">loop_rate</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    </span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;Ready to Receive&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span>(ros::<span class="built_in">ok</span>())</span><br><span class="line">	&#123;</span><br><span class="line">		ros::<span class="built_in">spinOnce</span>();</span><br><span class="line"></span><br><span class="line">		loop_rate.<span class="built_in">sleep</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2><span id="安装ros">安装ROS</span></h2><h3><span id="更新安装列表">更新安装列表</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>ros_client.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;std_srvs/Trigger.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//初始化节点</span></span><br><span class="line">	ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;ros_client&quot;</span>);</span><br><span class="line">	<span class="comment">//创建句柄</span></span><br><span class="line">	ros::NodeHandle n;</span><br><span class="line">	<span class="comment">//发现/ros_service_test服务后，创建服务客户端与其连接</span></span><br><span class="line">	ros::service::<span class="built_in">waitForService</span>(<span class="string">&quot;/ros_service_test&quot;</span>);</span><br><span class="line">	ros::ServiceClient client = n.serviceClient&lt;std_srvs::Trigger&gt;(<span class="string">&quot;/ros_service_test&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化std_srvs::Trigger请求数据</span></span><br><span class="line">	std_srvs::Trigger srv;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//请求服务调用</span></span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;Call Service&quot;</span>);</span><br><span class="line">	client.<span class="built_in">call</span>(srv);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示服务调用结果</span></span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;Call Service return [success:%s, message:%s]&quot;</span>,</span><br><span class="line">				srv.response.success==<span class="literal">true</span>?<span class="string">&quot;true&quot;</span>:<span class="string">&quot;false&quot;</span>,</span><br><span class="line">				srv.response.message.<span class="built_in">c_str</span>());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3><span id="安装ros">安装ros</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br><span class="line">sudo apt-get install ros-melodic-rqt*</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong> server端程序是会一直在死循环里面的，当 <code>ros::spin()</code> 或 <code>ros::spinOnce()</code> 被调用的时候，才会去检测回调函数队列中。</p>
+<p> <code>ros::spinOnce()</code> 被调用时，会调用回调函数队列中的第一个callback函数并将其清出队列，然后退出。 <code>ros::spinOnce()</code> 每次调用只能清除队列中的一个callback函数</p>
+<p> <code>ros::spin()</code> 相当于死循环，不会返回，回调函数队列中有callback函数就调用并将其清出队列，没有就阻塞，不占用CPU资源。</p>
+<h2><span id="编译">编译</span></h2><p>编辑 <code>CMakeLists.txt</code> 文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/</span><br><span class="line">gedit CMakeLists.txt</span><br></pre></td></tr></table></figure>
 
-<h3><span id="安装python-rosdep2">安装python-rosdep2</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python-rosdep2</span><br></pre></td></tr></table></figure>
+<p>CMakeLists.txt中添加</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">add_executable(ros_server src/ros_server.cpp)</span><br><span class="line">target_link_libraries(ros_server $&#123;catkin_LIBRARIES&#125;)</span><br><span class="line">add_executable(ros_client src/ros_client.cpp)</span><br><span class="line">target_link_libraries(ros_client $&#123;catkin_LIBRARIES&#125;)</span><br></pre></td></tr></table></figure>
 
-<h3><span id="初始化rosdep">初始化rosdep</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
-
-<p>此时很大概率会出现</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERROR: cannot download default sources list from:</span><br><span class="line">https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/sources.list.d/20-default.list</span><br><span class="line">Website may be down.</span><br></pre></td></tr></table></figure>
-
-<p>需要以下指令尝试，基本都能解决</p>
-<ol>
-<li><p>修改hosts文件</p>
-<p>以管理员权限打开 <code>/etc/hosts</code> 文件,在文件最末端添加 <code>151.101.228.133 raw.githubusercontent.com</code> ，其中的IP需要修改为电脑ping <code>raw.github.com</code>的IP</p>
-</li>
-<li><p>修改证书</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo c_rehash /etc/ssl/certs</span><br></pre></td></tr></table></figure></li>
-<li><p>修改网络，换手机热点或其他</p>
-</li>
-</ol>
-<h3><span id="安装python-rosinstall">安装python-rosinstall</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential</span><br></pre></td></tr></table></figure>
-
-<h2><span id="初始化">初始化</span></h2><h3><span id="加载环境">加载环境</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /opt/ros/melodic/setup.bash</span><br></pre></td></tr></table></figure>
-
-<h3><span id="创建工作目录并初始化">创建工作目录并初始化</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/catkin_ws/src</span><br><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src</span><br><span class="line">catkin_init_workspace</span><br></pre></td></tr></table></figure>
-
-<h3><span id="构建项目">构建项目</span></h3><p>目前，只有src目录和CMakeLists.txt文件在catkin工作目录中，使用catkin_make命令来构建</p>
-<p>至此，工作目录 <code>catkin_ws</code> 中只有 <code>src</code> 和<code>CMakeList.txt</code> ，需要通过 <code>catkin_make</code> 命令来构建项目 </p>
+<p>编译</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
 
-<h3><span id="设置环境变量">设置环境变量</span></h3><p>打开 <code>gedit ~/.bashrc</code> 文件，在文件末端添加以下代码</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set ROS melodic</span></span><br><span class="line"><span class="built_in">source</span> /opt/ros/melodic/setup.bash</span><br><span class="line"><span class="built_in">source</span> ~/catkin_ws/devel/setup.bash</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Set ROS Network</span></span><br><span class="line"><span class="built_in">export</span> ROS_HOSTNAME=127.0.0.1</span><br><span class="line"><span class="built_in">export</span> ROS_MASTER_URI=http://<span class="variable">$&#123;ROS_HOSTNAME&#125;</span>:11311</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Set ROS alias command 快捷指令</span></span><br><span class="line"><span class="built_in">alias</span> cw=<span class="string">&#x27;cd ~/catkin_ws&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> cs=<span class="string">&#x27;cd ~/catkin_ws/src&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> cm=<span class="string">&#x27;cd ~/catkin_ws &amp;&amp; catkin_make&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="执行">执行</span></h2><h3><span id="第一个终端">第一个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
 
-<h2><span id="ros测试">ROS测试</span></h2><p>终端运行 <code>roscore</code> 将会出现错误</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Command <span class="string">&#x27;roscore&#x27;</span> not found, but can be installed with:</span><br><span class="line">sudo apt install python-roslaunch</span><br></pre></td></tr></table></figure>
+<h3><span id="第二个终端">第二个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun pub_sub_test ros_server</span><br></pre></td></tr></table></figure>
 
-<p>原因为刚才安装python-rosdep2时卸载了一些包，导致ros-melodic-desktop-full不完整，需要重新安装</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br><span class="line">sudo apt-get install ros-melodic-rqt*</span><br></pre></td></tr></table></figure>
+<p>打开服务端</p>
+<h3><span id="第三个终端">第三个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun pub_sub_test ros_client</span><br></pre></td></tr></table></figure>
 
-<p><strong>注意：</strong> 安装ros-melodic-desktop-full时也会卸载python-rosdep2，所以在ros-melodic-desktop-full前安装python-rosdep2无效</p>
-<h3><span id="运行rosdemo">运行ROSdemo</span></h3><p>打开三个控制台，分别运行下列各行代码</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br><span class="line">rosrun turtlesim turtlesim_node</span><br><span class="line">rosrun turtlesim turtle_teleop_key</span><br></pre></td></tr></table></figure>
-
-<p>将会出现小乌龟界面，且通过键盘上的方向键可以控制小乌龟移动</p>
-<p><img src="/Ubuntu18%E5%AE%89%E8%A3%85ROS/2021/07/26/image-20210726203834246.png" alt="ros"></p>
+<p>打开客户端</p>
+<p><img src="/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/2021/09/05/image-20210905223239761.png" alt="效果"></p>
 
         </div>
         
@@ -306,7 +268,7 @@
     <script type="text/javascript">
         $(()=>{
             new QRCode("wechat-qr", {
-                text: "http://540060348.github.io/Ubuntu18%E5%AE%89%E8%A3%85ROS/2021/07/26/",
+                text: "http://540060348.github.io/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/2021/09/05/",
                 width: 150,
                 height: 150,
                 correctLevel : QRCode.CorrectLevel.H
@@ -318,9 +280,9 @@
             const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
             const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
             const twitterBase   = "https://twitter.com/intent/tweet?";
-            const hostUrl       = "http://540060348.github.io/Ubuntu18%E5%AE%89%E8%A3%85ROS/2021/07/26/";
-            const title         = "「Ubuntu18安装ROS」";
-            const excerpt       = `Ubuntu18安装ROS`;
+            const hostUrl       = "http://540060348.github.io/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/2021/09/05/";
+            const title         = "「ROS服务提供与调用（一）」";
+            const excerpt       = `ROS服务提供与调用（一）`;
             let _URL;
             switch (dest) {
                 case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
@@ -339,10 +301,10 @@
             <div class="footer-tag clearfix">
                 <div class="pull-left">
                 <i class="fa fa-tags"></i>
-                    <a class="tag-none-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/ROS/" rel="tag">ROS</a>, <a class="tag-none-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a>
+                    <a class="tag-none-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/ROS/" rel="tag">ROS</a>
                 </div>
                 <div class="pull-date">
-                <span>最后编辑：2021-08-04</span>
+                <span>最后编辑：2021-09-06</span>
                 </div>
             </div>
         </footer>
@@ -351,12 +313,12 @@
         <nav class="navigation post-navigation clearfix" role="navigation">
             
             <div class="nav-previous clearfix">
-                <a title=" VM12安装Ubuntu18虚拟机" href="/VM12安装Ubuntu18虚拟机/2021/07/24/">&lt; 上一篇</a>
+                <a title=" Ubuntu18修改网卡Mac地址" href="/Ubuntu18修改网卡Mac地址/2021/09/05/">&lt; 上一篇</a>
             </div>
             
             
             <div class="nav-next clearfix">
-                <a title=" ROS发布订阅消息（一）" href="/ROS发布订阅消息（一）/2021/08/04/">下一篇 &gt;</a>
+                <a title=" ROS服务提供与调用（二）" href="/ROS服务提供与调用（二）/2021/09/06/">下一篇 &gt;</a>
             </div>
             
         </nav>

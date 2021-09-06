@@ -4,7 +4,7 @@
   <!-- 元数据 -->
   <meta charset="utf-8">
   <link rel="icon" href="">
-  <title>ROS发布订阅消息（三） | 战麟</title>
+  <title>ROS服务提供与调用（二） | 战麟</title>
   <meta name="author" content="战麟" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -15,16 +15,16 @@
   
     <meta name="keywords" content="Linux, ROS" />
   
-  <meta name="description" content="ROS发布订阅消息（三）">
+  <meta name="description" content="ROS服务提供与调用（二）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ROS发布订阅消息（三）">
-<meta property="og:url" content="http://540060348.github.io/ROS%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%EF%BC%88%E4%B8%89%EF%BC%89/2021/08/04/index.html">
+<meta property="og:title" content="ROS服务提供与调用（二）">
+<meta property="og:url" content="http://540060348.github.io/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/2021/09/06/index.html">
 <meta property="og:site_name" content="战麟">
-<meta property="og:description" content="ROS发布订阅消息（三）">
+<meta property="og:description" content="ROS服务提供与调用（二）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://540060348.github.io/null">
-<meta property="article:published_time" content="2021-08-04T12:36:20.000Z">
-<meta property="article:modified_time" content="2021-08-12T14:21:35.263Z">
+<meta property="article:published_time" content="2021-09-06T14:40:32.000Z">
+<meta property="article:modified_time" content="2021-09-06T15:09:38.897Z">
 <meta property="article:author" content="战麟">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="ROS">
@@ -149,17 +149,17 @@
     <div class="kratos-hentry kratos-post-inner clearfix">
         <header class="kratos-entry-header">
             
-                <h1 class="kratos-entry-title text-center">ROS发布订阅消息（三）</h1>
+                <h1 class="kratos-entry-title text-center">ROS服务提供与调用（二）</h1>
             
             
             <ul class="kratos-post-meta text-center">
-                <li><i class="fa fa-calendar"></i> 2021-08-04</li>
+                <li><i class="fa fa-calendar"></i> 2021-09-06</li>
                 <li><i class="fa fa-user"></i> 作者 战麟</li>
                 <li>
                     <i class="fa fa-edit"></i> 
                     
                     
-                        ~2.75K
+                        ~3.66K
                     
                     字
                 </li>
@@ -168,21 +168,28 @@
         </header>
         <div class="kratos-post-content">
             <div id="expire-alert" class="alert alert-warning hidden" role="alert">
-                本文最后编辑于 <time datetime="1628778095263"></time> 前，其中的内容可能需要更新。
+                本文最后编辑于 <time datetime="1630940978897"></time> 前，其中的内容可能需要更新。
             </div>
             
             <hr />
-            <h1><span id="ros发布订阅消息三">ROS发布订阅消息（三）</span></h1><span id="more"></span>
+            <h1><span id="ros服务提供与调用二">ROS服务提供与调用（二）</span></h1><span id="more"></span>
 
 <!-- toc -->
 
 <ul>
-<li><a href="#%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85double%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E6%B6%88%E6%81%AF">发布订阅double数组类型消息</a><ul>
-<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%95%B0%E6%8D%AE">创建自己的服务数据</a><ul>
+<li><a href="#%E5%88%9B%E5%BB%BAsrv%E6%96%87%E4%BB%B6">创建srv文件</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9packagexml%E6%96%87%E4%BB%B6">修改package.xml文件</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9cmakelixttxt%E6%96%87%E4%BB%B6">修改CMakeLixt.txt文件</a></li>
+<li><a href="#%E9%AA%8C%E8%AF%81%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%95%B0%E6%8D%AE">验证自己的服务数据</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%95%B0%E6%8D%AE">使用自己的服务数据</a><ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%A8%8B%E5%BA%8F">创建程序</a></li>
 </ul>
 </li>
 <li><a href="#%E7%BC%96%E8%AF%91">编译</a></li>
-<li><a href="#%E8%BF%90%E8%A1%8C">运行</a><ul>
+<li><a href="#%E6%89%A7%E8%A1%8C">执行</a><ul>
 <li><a href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%88%E7%AB%AF">第一个终端</a></li>
 <li><a href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E7%BB%88%E7%AB%AF">第二个终端</a></li>
 <li><a href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E7%BB%88%E7%AB%AF">第三个终端</a></li>
@@ -191,34 +198,53 @@
 </ul>
 <!-- tocstop -->
 
-<h2><span id="发布订阅double数组类型消息">发布订阅double数组类型消息</span></h2><p>与上一章节发布订阅字符串类型相似</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/src</span><br><span class="line">gedit pub_float64multiarray.cpp</span><br><span class="line">gedit sub_float64multiarray.cpp</span><br></pre></td></tr></table></figure>
+<h2><span id="创建自己的服务数据">创建自己的服务数据</span></h2><h3><span id="创建srv文件">创建srv文件</span></h3><p>创建 <code>~/catkin_ws/src/pub_sub_test/srv</code> 路径并创建 <code>MyService.srv</code> 文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/catkin_ws/src/pub_sub_test/srv</span><br><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/srv</span><br><span class="line">gedit MyService.srv</span><br></pre></td></tr></table></figure>
 
-<p>pub_float64multiarray.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;std_msgs/Float64MultiArray.h&quot;</span> <span class="comment">//#include &quot;std_msgs/String.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;talkerFloat64MultiArray&quot;</span>);</span><br><span class="line"></span><br><span class="line">	ros::NodeHandle n;</span><br><span class="line"></span><br><span class="line">	ros::Publisher chatter_pub = n.advertise&lt;std_msgs::Float64MultiArray&gt;(<span class="string">&quot;chatterFloat64MultiArray&quot;</span>, <span class="number">1000</span>); <span class="comment">//ros::Publisher chatter_pub = n.advertise&lt;std_msgs::String&gt;(&quot;chatter&quot;, 1000);</span></span><br><span class="line"></span><br><span class="line">	<span class="function">ros::Rate <span class="title">loop_rate</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//int count = 0;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//double testArray[5] = &#123;1,2,3,4,5&#125;; //create an array to publish</span></span><br><span class="line">	std::vector&lt;<span class="keyword">double</span>&gt; testArray = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (ros::<span class="built_in">ok</span>())</span><br><span class="line">	&#123;</span><br><span class="line">		std_msgs::Float64MultiArray msg; <span class="comment">//std_msgs::String msg;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// std::stringstream ss;</span></span><br><span class="line">		<span class="comment">// ss &lt;&lt; &quot;hello world &quot; &lt;&lt; count;</span></span><br><span class="line">		msg.data = testArray;<span class="comment">// msg.data = ss.str();</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="built_in">ROS_INFO</span>(<span class="string">&quot;I have published array data&quot;</span>); <span class="comment">//ROS_INFO(&quot;%f&quot;, msg.data.c_str())</span></span><br><span class="line"></span><br><span class="line">		chatter_pub.<span class="built_in">publish</span>(msg);</span><br><span class="line"></span><br><span class="line">		ros::<span class="built_in">spinOnce</span>();</span><br><span class="line"></span><br><span class="line">		loop_rate.<span class="built_in">sleep</span>();</span><br><span class="line">	 <span class="comment">// ++count;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MyService.srv</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int8 int_num</span><br><span class="line">float64 double_num</span><br><span class="line">string text</span><br><span class="line">---</span><br><span class="line">int8 res_int_num</span><br><span class="line">float64 res_double_num</span><br><span class="line">string res_text</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>sub_float64multiarray.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;std_msgs/Float64MultiArray.h&quot;</span> <span class="comment">//#include &quot;std_msgs/String.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">chatterCallback</span><span class="params">(<span class="keyword">const</span> std_msgs::Float64MultiArray::ConstPtr&amp; msg)</span> <span class="comment">//void chatterCallback(const std_msgs::String::ConstPtr&amp; msg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;I heard: [%f], [%f]&quot;</span>, msg-&gt;data[<span class="number">0</span>], msg-&gt;data[<span class="number">1</span>]); <span class="comment">//ROS_INFO(&quot;I heard: [%f]&quot;, msg-&gt;data.c_str());</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;listenerFloat64MultiArray&quot;</span>);</span><br><span class="line"></span><br><span class="line">	ros::NodeHandle n;</span><br><span class="line"></span><br><span class="line">	ros::Subscriber sub = n.<span class="built_in">subscribe</span>(<span class="string">&quot;chatterFloat64MultiArray&quot;</span>, <span class="number">1000</span>, chatterCallback);</span><br><span class="line"></span><br><span class="line">	ros::<span class="built_in">spin</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>知识点：</strong></p>
+<ol>
+<li>文件名必须以 <code>.srv</code> 结尾</li>
+<li>srv请求与响应数据通过 <code>---</code> 分隔，前面为请求，后面为响应</li>
+<li>变量类型和变量名之间以空格隔开，不能使用tab</li>
+</ol>
+<h3><span id="修改packagexml文件">修改package.xml文件</span></h3><p>将生成服务数据需要的依赖环境注释去除</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span> </span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span> </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<h3><span id="注意事项">注意事项</span></h3><p>在ROS中，是不能将数组的值直接赋值给<code>msg.data</code>，需要通过 <code>std::vector&lt;T&gt;</code> 来实现</p>
+<h3><span id="修改cmakelixttxt文件">修改CMakeLixt.txt文件</span></h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">find_package(catkin REQUIRED COMPONENTS</span><br><span class="line">  roscpp</span><br><span class="line">  std_msgs</span><br><span class="line">  message_generation	<span class="comment">#添加一个依赖包</span></span><br><span class="line">)</span><br><span class="line">...</span><br><span class="line">add_service_files(</span><br><span class="line">  FILES</span><br><span class="line">  MyService.srv			<span class="comment">#添加服务文件</span></span><br><span class="line">)</span><br><span class="line">...</span><br><span class="line">generate_messages(</span><br><span class="line">  DEPENDENCIES</span><br><span class="line">  std_msgs				<span class="comment">#添加生成消息需要的依赖包</span></span><br><span class="line">)</span><br><span class="line">...</span><br><span class="line">catkin_package(</span><br><span class="line">	CATKIN_DEPENDS message_runtime</span><br><span class="line">)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3><span id="验证自己的服务数据">验证自己的服务数据</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rossrv show pub_sub_test/MyService</span><br></pre></td></tr></table></figure>
+
+<p><img src="/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/2021/09/06/image-20210906230011528.png" alt="MyService效果"></p>
+<h2><span id="使用自己的服务数据">使用自己的服务数据</span></h2><h3><span id="创建程序">创建程序</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/src</span><br><span class="line">gedit ros_server2.cpp</span><br><span class="line">gedit ros_client2.cpp</span><br></pre></td></tr></table></figure>
+
+<p>ros_server2.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;pub_sub_test/MyService.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建服务回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">commandCallback</span><span class="params">(pub_sub_test::MyService::Request &amp;req,</span></span></span><br><span class="line"><span class="params"><span class="function">					pub_sub_test::MyService::Response &amp;res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">float</span> b = <span class="number">1.5</span>;</span><br><span class="line">	<span class="comment">//显示当前状态数据</span></span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;Get Request[int_num:%d, double_num:%0.6f, text:%s]&quot;</span>,</span><br><span class="line">				req.int_num,</span><br><span class="line">				req.double_num,</span><br><span class="line">				req.text.<span class="built_in">c_str</span>());</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置反馈数据</span></span><br><span class="line">	res.res_int_num = a;</span><br><span class="line">	res.res_double_num = b;</span><br><span class="line">	res.res_text = <span class="string">&quot;Got Request and Return Response&quot;</span>;</span><br><span class="line"></span><br><span class="line">	a += <span class="number">1</span>;</span><br><span class="line">	b *= <span class="number">1.2</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//初始化节点</span></span><br><span class="line">	ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;ros_server2&quot;</span>);</span><br><span class="line">	<span class="comment">//创建句柄</span></span><br><span class="line">	ros::NodeHandle n;</span><br><span class="line">	<span class="comment">//创建/ros_service_test2服务，注册回调函数</span></span><br><span class="line">	ros::ServiceServer commandService = n.<span class="built_in">advertiseService</span>(<span class="string">&quot;/ros_service_test2&quot;</span>, commandCallback);</span><br><span class="line">	</span><br><span class="line">	<span class="function">ros::Rate <span class="title">loop_rate</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    </span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;Ready to Receive&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span>(ros::<span class="built_in">ok</span>())</span><br><span class="line">	&#123;</span><br><span class="line">		ros::<span class="built_in">spinOnce</span>();</span><br><span class="line"></span><br><span class="line">		loop_rate.<span class="built_in">sleep</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ros_client2.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;pub_sub_test/MyService.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//初始化节点</span></span><br><span class="line">	ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;ros_client2&quot;</span>);</span><br><span class="line">	<span class="comment">//创建句柄</span></span><br><span class="line">	ros::NodeHandle n;</span><br><span class="line">	<span class="comment">//发现/ros_service_test2服务后，创建服务客户端与其连接</span></span><br><span class="line">	ros::service::<span class="built_in">waitForService</span>(<span class="string">&quot;/ros_service_test2&quot;</span>);</span><br><span class="line">	ros::ServiceClient client = n.serviceClient&lt;pub_sub_test::MyService&gt;(<span class="string">&quot;/ros_service_test2&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化pub_sub_test::MyService请求数据</span></span><br><span class="line">	pub_sub_test::MyService srv;</span><br><span class="line">	<span class="built_in">srand</span>((<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="built_in">time</span>(<span class="number">0</span>));<span class="comment">//初始化种子为随机值</span></span><br><span class="line">	srv.request.int_num = <span class="built_in">rand</span>() % <span class="number">10</span>;</span><br><span class="line">	srv.request.double_num = <span class="built_in">rand</span>() % <span class="number">10</span> / <span class="number">3.0</span>;</span><br><span class="line">	srv.request.text = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//请求服务调用</span></span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;Call Service&quot;</span>);</span><br><span class="line">	client.<span class="built_in">call</span>(srv);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//显示服务调用结果</span></span><br><span class="line">	<span class="built_in">ROS_INFO</span>(<span class="string">&quot;Call Service return [int_num:%d, double_num:%0.6f, text:%s]&quot;</span>,</span><br><span class="line">				srv.response.res_int_num,</span><br><span class="line">				srv.response.res_double_num,</span><br><span class="line">				srv.response.res_text.<span class="built_in">c_str</span>());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong> 创建服务数据文件时是 <code>.srv</code> 文件，使用时include是 <code>.h</code> 文件，原因是ros在编译过程中会生成相应的 <code>.h</code> 文件以供调用。</p>
 <h2><span id="编译">编译</span></h2><p>编辑 <code>CMakeLists.txt</code> 文件</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/</span><br><span class="line">gedit CMakeLists.txt</span><br></pre></td></tr></table></figure>
 
 <p>CMakeLists.txt中添加</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">add_executable(pub_float64multiarray src/pub_float64multiarray.cpp)</span><br><span class="line">target_link_libraries(pub_float64multiarray $&#123;catkin_LIBRARIES&#125;)</span><br><span class="line">add_executable(sub_float64multiarray src/sub_float64multiarray.cpp)</span><br><span class="line">target_link_libraries(sub_float64multiarray $&#123;catkin_LIBRARIES&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">add_executable(ros_server2 src/ros_server2.cpp)</span><br><span class="line">target_link_libraries(ros_server2 $&#123;catkin_LIBRARIES&#125;)</span><br><span class="line">add_executable(ros_client2 src/ros_client2.cpp)</span><br><span class="line">target_link_libraries(ros_client2 $&#123;catkin_LIBRARIES&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>编译</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
 
-<h2><span id="运行">运行</span></h2><p>与上一章节类似</p>
-<h3><span id="第一个终端">第一个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
+<h2><span id="执行">执行</span></h2><h3><span id="第一个终端">第一个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
 
-<h3><span id="第二个终端">第二个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">rosrun pub_sub_test sub_float64multiarray</span><br></pre></td></tr></table></figure>
+<h3><span id="第二个终端">第二个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun pub_sub_test ros_server2</span><br></pre></td></tr></table></figure>
 
-<h3><span id="第三个终端">第三个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">rosrun pub_sub_test pub_float64multiarray</span><br></pre></td></tr></table></figure>
+<p>打开服务端</p>
+<h3><span id="第三个终端">第三个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun pub_sub_test ros_client2</span><br></pre></td></tr></table></figure>
 
-<p>此时，在第三个终端将会打印发送的字符串，第二个终端会打印接收到的字符串</p>
-<p><img src="/ROS%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%EF%BC%88%E4%B8%89%EF%BC%89/2021/08/04/image-20210801163840946.png" alt="效果"></p>
+<p>打开客户端</p>
+<p><img src="/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/2021/09/06/image-20210906230918711.png" alt="效果"></p>
 
         </div>
         
@@ -270,7 +296,7 @@
     <script type="text/javascript">
         $(()=>{
             new QRCode("wechat-qr", {
-                text: "http://540060348.github.io/ROS%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%EF%BC%88%E4%B8%89%EF%BC%89/2021/08/04/",
+                text: "http://540060348.github.io/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/2021/09/06/",
                 width: 150,
                 height: 150,
                 correctLevel : QRCode.CorrectLevel.H
@@ -282,9 +308,9 @@
             const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
             const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
             const twitterBase   = "https://twitter.com/intent/tweet?";
-            const hostUrl       = "http://540060348.github.io/ROS%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%EF%BC%88%E4%B8%89%EF%BC%89/2021/08/04/";
-            const title         = "「ROS发布订阅消息（三）」";
-            const excerpt       = `ROS发布订阅消息（三）`;
+            const hostUrl       = "http://540060348.github.io/ROS%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/2021/09/06/";
+            const title         = "「ROS服务提供与调用（二）」";
+            const excerpt       = `ROS服务提供与调用（二）`;
             let _URL;
             switch (dest) {
                 case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
@@ -306,7 +332,7 @@
                     <a class="tag-none-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/ROS/" rel="tag">ROS</a>
                 </div>
                 <div class="pull-date">
-                <span>最后编辑：2021-08-12</span>
+                <span>最后编辑：2021-09-06</span>
                 </div>
             </div>
         </footer>
@@ -315,13 +341,9 @@
         <nav class="navigation post-navigation clearfix" role="navigation">
             
             <div class="nav-previous clearfix">
-                <a title=" ROS发布订阅消息（二）" href="/ROS发布订阅消息（二）/2021/08/04/">&lt; 上一篇</a>
+                <a title=" ROS服务提供与调用（一）" href="/ROS服务提供与调用（一）/2021/09/05/">&lt; 上一篇</a>
             </div>
             
-            
-            <div class="nav-next clearfix">
-                <a title=" ROS发布订阅消息（四）" href="/ROS发布订阅消息（四）/2021/08/04/">下一篇 &gt;</a>
-            </div>
             
         </nav>
     
