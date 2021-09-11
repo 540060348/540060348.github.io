@@ -4,7 +4,7 @@
   <!-- 元数据 -->
   <meta charset="utf-8">
   <link rel="icon" href="">
-  <title>ROS发布消息（Python版） | 战麟</title>
+  <title>TensorFlow基础知识 | 战麟</title>
   <meta name="author" content="战麟" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -13,22 +13,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="Linux, Python, ROS" />
+    <meta name="keywords" content="Tensorflow" />
   
-  <meta name="description" content="ROS发布消息（Python版）">
+  <meta name="description" content="TensorFlow基础知识">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ROS发布消息（Python版）">
-<meta property="og:url" content="http://540060348.github.io/ROS%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF%EF%BC%88Python%E7%89%88%EF%BC%89/2021/08/16/index.html">
+<meta property="og:title" content="TensorFlow基础知识">
+<meta property="og:url" content="http://540060348.github.io/TensorFlow%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2021/09/11/index.html">
 <meta property="og:site_name" content="战麟">
-<meta property="og:description" content="ROS发布消息（Python版）">
+<meta property="og:description" content="TensorFlow基础知识">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://540060348.github.io/null">
-<meta property="article:published_time" content="2021-08-16T14:48:42.000Z">
-<meta property="article:modified_time" content="2021-08-16T15:01:43.020Z">
+<meta property="article:published_time" content="2021-09-11T13:10:17.000Z">
+<meta property="article:modified_time" content="2021-09-11T14:33:02.434Z">
 <meta property="article:author" content="战麟">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="ROS">
-<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Tensorflow">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://540060348.github.io/null">
 <meta name="twitter:site" content="@null">
@@ -150,17 +148,17 @@
     <div class="kratos-hentry kratos-post-inner clearfix">
         <header class="kratos-entry-header">
             
-                <h1 class="kratos-entry-title text-center">ROS发布消息（Python版）</h1>
+                <h1 class="kratos-entry-title text-center">TensorFlow基础知识</h1>
             
             
             <ul class="kratos-post-meta text-center">
-                <li><i class="fa fa-calendar"></i> 2021-08-16</li>
+                <li><i class="fa fa-calendar"></i> 2021-09-11</li>
                 <li><i class="fa fa-user"></i> 作者 战麟</li>
                 <li>
                     <i class="fa fa-edit"></i> 
                     
                     
-                        1293
+                        ~1.87K
                     
                     字
                 </li>
@@ -169,44 +167,71 @@
         </header>
         <div class="kratos-post-content">
             <div id="expire-alert" class="alert alert-warning hidden" role="alert">
-                本文最后编辑于 <time datetime="1629126103020"></time> 前，其中的内容可能需要更新。
+                本文最后编辑于 <time datetime="1631370782434"></time> 前，其中的内容可能需要更新。
             </div>
             
             <hr />
-            <h1><span id="ros发布消息python版">ROS发布消息（Python版）</span></h1><span id="more"></span>
+            <h1><span id="tensorflow基础知识">TensorFlow基础知识</span></h1><span id="more"></span>
 
 <!-- toc -->
 
 <ul>
-<li><a href="#%E5%88%9B%E5%BB%BA%E7%A8%8B%E5%BA%8F">创建程序</a></li>
-<li><a href="#%E6%89%A7%E8%A1%8C">执行</a><ul>
-<li><a href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%88%E7%AB%AF">第一个终端</a></li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E7%BB%88%E7%AB%AF">第二个终端</a></li>
-<li><a href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E7%BB%88%E7%AB%AF">第三个终端</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">数据类型</a><ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAtensor">创建一个Tensor</a></li>
+<li><a href="#numpy%E6%95%B0%E6%8D%AE%E8%BD%ACtensor%E6%95%B0%E6%8D%AE">Numpy数据转Tensor数据</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0%E7%9B%B8%E5%90%8C%E7%9A%84%E5%BC%A0%E9%87%8F">创建元素相同的张量</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E9%9A%8F%E6%9C%BA%E5%BC%A0%E9%87%8F">创建随机张量</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0">常用函数</a><ul>
+<li><a href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2">强制类型转换</a></li>
+<li><a href="#%E8%AE%A1%E7%AE%97%E5%BC%A0%E9%87%8F%E5%85%83%E7%B4%A0%E6%9C%80%E5%B0%8F%E5%80%BC">计算张量元素最小值</a></li>
+<li><a href="#%E8%AE%A1%E7%AE%97%E5%BC%A0%E9%87%8F%E5%85%83%E7%B4%A0%E6%9C%80%E5%A4%A7%E5%80%BC">计算张量元素最大值</a></li>
 </ul>
 </li>
 </ul>
 <!-- tocstop -->
 
-<h2><span id="创建程序">创建程序</span></h2><p>在原有的功能包pub_sub_test中添加scripts文件夹，用于放置python程序源码，以区分c++程序</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/catkin_ws/src/pub_sub_test/scripts</span><br><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src/pub_sub_test/scripts</span><br><span class="line">gedit pub_velocity.py</span><br></pre></td></tr></table></figure>
+<h2><span id="数据类型">数据类型</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tf.int32</span><br><span class="line">tf.int64</span><br><span class="line">tf.float32</span><br><span class="line">tf.float64</span><br><span class="line">tf.<span class="built_in">bool</span></span><br><span class="line">tf.string</span><br></pre></td></tr></table></figure>
 
-<p>pub_velocity.py</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># 此程序将发布 turtle1/cmd_vel 话题，消息类型 geometry_msgs::Twist</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> geometry_msgs.msg <span class="keyword">import</span> Twist</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pub_vel</span>():</span></span><br><span class="line">	<span class="comment">#节点初始化</span></span><br><span class="line">	rospy.init_node(<span class="string">&#x27;pub_vel&#x27;</span>, anonymous=<span class="literal">True</span>)</span><br><span class="line">	<span class="comment">#创建Publisher</span></span><br><span class="line">	turtle_vel_pub = rospy.Publisher(<span class="string">&#x27;turtle1/cmd_vel&#x27;</span>, Twist, queue_size=<span class="number">10</span>)</span><br><span class="line">	<span class="comment">#设置循环频率</span></span><br><span class="line">	rate = rospy.Rate(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> <span class="keyword">not</span> rospy.is_shutdown():</span><br><span class="line">		<span class="comment">#初始化消息</span></span><br><span class="line">		vel_msg = Twist()</span><br><span class="line">		vel_msg.linear.x = <span class="number">0.5</span></span><br><span class="line">		vel_msg.angular.z = <span class="number">0.2</span></span><br><span class="line">		<span class="comment">#发布消息</span></span><br><span class="line">		turtle_vel_pub.publish(vel_msg)</span><br><span class="line">		<span class="comment">#日志输出</span></span><br><span class="line">		rospy.loginfo(<span class="string">&quot;Publish turtle vel [%0.2f m/s, %0.2f rad/s]&quot;</span>, vel_msg.linear.x, vel_msg.angular.z)</span><br><span class="line">		<span class="comment">#频率延时</span></span><br><span class="line">		rate.sleep()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		pub_vel()</span><br><span class="line">	<span class="keyword">except</span> rospy.ROSInterruptException:</span><br><span class="line">		<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h3><span id="创建一个tensor">创建一个Tensor</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.constant(张量内容，dtype=数据类型(可选))</span><br></pre></td></tr></table></figure>
 
-<p>创建程序完成后，需要对其添加可执行权限</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x ~/catkin_ws/src/pub_sub_test/scripts/pub_velocity.py</span><br></pre></td></tr></table></figure>
+<p>例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">a = tf.constant([<span class="number">1</span>,<span class="number">5</span>], dtype=tf.int64)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(a.dtype)</span><br><span class="line"><span class="built_in">print</span>(a.shape)</span><br></pre></td></tr></table></figure>
 
-<p>程序主要发布了一个速度信息，可以控制小海龟移动</p>
-<h2><span id="执行">执行</span></h2><h3><span id="第一个终端">第一个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor([<span class="number">1</span> <span class="number">5</span>], shape=(<span class="number">2</span>,), dtype=int64)</span><br><span class="line">&lt;dtype: <span class="string">&#x27;int64&#x27;</span>&gt;</span><br><span class="line">(<span class="number">2</span>,)</span><br></pre></td></tr></table></figure>
 
-<h3><span id="第二个终端">第二个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun turtlesim turtlesim_node</span><br></pre></td></tr></table></figure>
+<h3><span id="numpy数据转tensor数据">Numpy数据转Tensor数据</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.convert_to_tensor(数据名，dtype=数据类型(可选))</span><br></pre></td></tr></table></figure>
 
-<p>打开小海龟节点，用于观察发布的消息被使用的效果</p>
-<h3><span id="第三个终端">第三个终端</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun pub_sub_test pub_velocity.py</span><br></pre></td></tr></table></figure>
+<p>例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.arange(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">b = tf.convert_to_tensor(a, dtype=tf.int64)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br></pre></td></tr></table></figure>
 
-<p>Python是一种解释语言，通过解释器解释即可，无需类似C++编译的过程</p>
-<p><img src="/ROS%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF%EF%BC%88Python%E7%89%88%EF%BC%89/2021/08/16/image-20210816230128140.png" alt="效果"></p>
+<p>输出结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]</span><br><span class="line">tf.Tensor([<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>], shape=(<span class="number">5</span>,), dtype=int64)</span><br></pre></td></tr></table></figure>
+
+<h3><span id="创建元素相同的张量">创建元素相同的张量</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tf.zeros(维度)		<span class="comment"># 创建全为0的张量</span></span><br><span class="line">tf.ones(维度)			<span class="comment"># 创建全为1的张量</span></span><br><span class="line">tf.fill(维度,指定值)	  <span class="comment"># 创建全为指定值的张量</span></span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">a = tf.zeros([<span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">b = tf.ones(<span class="number">4</span>)</span><br><span class="line">c = tf.fill([<span class="number">2</span>, <span class="number">2</span>], <span class="number">9</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line"> [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]], shape=(<span class="number">2</span>, <span class="number">3</span>), dtype=float32)</span><br><span class="line">tf.Tensor([<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>], shape=(<span class="number">4</span>,), dtype=float32)</span><br><span class="line">tf.Tensor(</span><br><span class="line">[[<span class="number">9</span> <span class="number">9</span>]</span><br><span class="line"> [<span class="number">9</span> <span class="number">9</span>]], shape=(<span class="number">2</span>, <span class="number">2</span>), dtype=int32)</span><br></pre></td></tr></table></figure>
+
+<h3><span id="创建随机张量">创建随机张量</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tf.random.normal(维度,mean=均值,stddev=标准差)				<span class="comment"># 生成符合正态分布的随机数</span></span><br><span class="line">tf.random.truncated_normal(维度,mean=均值,stddev=标准差)	<span class="comment"># 生成截断式符合正态分布的随机数, 所有元素均在2倍标准差之内</span></span><br><span class="line">tf.random.uniform(维度,minval=最小值, maxval=最大值)		<span class="comment"># 生成符合均匀分布的随机数</span></span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">a = tf.random.normal([<span class="number">2</span>, <span class="number">2</span>], mean=<span class="number">0.5</span>, stddev=<span class="number">1</span>)</span><br><span class="line">b = tf.random.truncated_normal([<span class="number">2</span>, <span class="number">2</span>], mean=<span class="number">0.5</span>, stddev=<span class="number">1</span>)</span><br><span class="line">c = tf.random.uniform([<span class="number">2</span>, <span class="number">2</span>], minval=<span class="number">0</span>, maxval=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[-<span class="number">0.01155901</span>  <span class="number">0.33431274</span>]</span><br><span class="line"> [ <span class="number">0.51011807</span>  <span class="number">0.6987609</span> ]], shape=(<span class="number">2</span>, <span class="number">2</span>), dtype=float32)</span><br><span class="line">tf.Tensor(</span><br><span class="line">[[<span class="number">1.8516878</span>  <span class="number">0.07596135</span>]</span><br><span class="line"> [<span class="number">0.3482933</span>  <span class="number">0.7754396</span> ]], shape=(<span class="number">2</span>, <span class="number">2</span>), dtype=float32)</span><br><span class="line">tf.Tensor(</span><br><span class="line">[[<span class="number">0.8685546</span>  <span class="number">0.80785036</span>]</span><br><span class="line"> [<span class="number">0.48821282</span> <span class="number">0.15612471</span>]], shape=(<span class="number">2</span>, <span class="number">2</span>), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+<h2><span id="常用函数">常用函数</span></h2><h3><span id="强制类型转换">强制类型转换</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.cast(张量名, dtpye=数据类型)</span><br></pre></td></tr></table></figure>
+
+<h3><span id="计算张量元素最小值">计算张量元素最小值</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.reduce_min(张量名)</span><br></pre></td></tr></table></figure>
+
+<h3><span id="计算张量元素最大值">计算张量元素最大值</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.reduce_max(张量名)</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -258,7 +283,7 @@
     <script type="text/javascript">
         $(()=>{
             new QRCode("wechat-qr", {
-                text: "http://540060348.github.io/ROS%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF%EF%BC%88Python%E7%89%88%EF%BC%89/2021/08/16/",
+                text: "http://540060348.github.io/TensorFlow%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2021/09/11/",
                 width: 150,
                 height: 150,
                 correctLevel : QRCode.CorrectLevel.H
@@ -270,9 +295,9 @@
             const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
             const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
             const twitterBase   = "https://twitter.com/intent/tweet?";
-            const hostUrl       = "http://540060348.github.io/ROS%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF%EF%BC%88Python%E7%89%88%EF%BC%89/2021/08/16/";
-            const title         = "「ROS发布消息（Python版）」";
-            const excerpt       = `ROS发布消息（Python版）`;
+            const hostUrl       = "http://540060348.github.io/TensorFlow%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2021/09/11/";
+            const title         = "「TensorFlow基础知识」";
+            const excerpt       = `TensorFlow基础知识`;
             let _URL;
             switch (dest) {
                 case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
@@ -291,10 +316,10 @@
             <div class="footer-tag clearfix">
                 <div class="pull-left">
                 <i class="fa fa-tags"></i>
-                    <a class="tag-none-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/Python/" rel="tag">Python</a>, <a class="tag-none-link" href="/tags/ROS/" rel="tag">ROS</a>
+                    <a class="tag-none-link" href="/tags/Tensorflow/" rel="tag">Tensorflow</a>
                 </div>
                 <div class="pull-date">
-                <span>最后编辑：2021-08-16</span>
+                <span>最后编辑：2021-09-11</span>
                 </div>
             </div>
         </footer>
@@ -303,13 +328,9 @@
         <nav class="navigation post-navigation clearfix" role="navigation">
             
             <div class="nav-previous clearfix">
-                <a title=" ROS创建自己的消息类型" href="/ROS创建自己的消息类型/2021/08/12/">&lt; 上一篇</a>
+                <a title=" Tensorflow2.1开发环境搭建" href="/Tensorflow2-1开发环境搭建/2021/09/10/">&lt; 上一篇</a>
             </div>
             
-            
-            <div class="nav-next clearfix">
-                <a title=" Hexo部署git失败：The requested URL returned error: 403" href="/Hexo部署git失败：The-requested-URL-returned-error-403/2021/08/17/">下一篇 &gt;</a>
-            </div>
             
         </nav>
     
