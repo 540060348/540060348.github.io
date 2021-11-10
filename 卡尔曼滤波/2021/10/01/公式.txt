@@ -1,0 +1,52 @@
+估计值：
+$$
+\begin{aligned}
+\hat{x}_k &= \frac{1}{k}(z_1+z_2+\cdots+z_k)\\
+&= \frac{1}{k}(z_1+z_2+\cdots+z_{k-1})+\frac{1}{k}z_k\\
+&= \frac{1}{k}\frac{k-1}{k-1}(z_1+z_2+\cdots+z_{k-1})+\frac{1}{k}z_k\\
+&= \frac{k-1}{k}\hat{x}_{k-1}+\frac{1}{k}z_k\\
+&= \hat{x}_{k-1}-\frac{1}{k}\hat{x}_{k-1}+\frac{1}{k}z_k\\
+&= \hat{x}_{k-1}+\frac{1}{k}(z_k-\hat{x}_{k-1})
+\end{aligned}
+$$
+将1/k使用一个系数K_k表示
+$$
+\hat{x_k} = \hat{x}_{k-1}+K_k(z_k-\hat{x}_{k-1})
+$$
+公式含义
+$$
+当前估计值 = 上一次估计值 + 系数 *(当前测量值 - 上一次估计值)
+$$
+引入参数估计误差`e_EST`、`e_MEA`
+$$
+K_k = \frac{e_{EST_{k-1}}}{e_{EST_{k-1}}+e_{MEA_{k}}}
+$$
+计算e_EST
+$$
+e_{EST_{k}} = (1-K_k)e_{EST_{k-1}}
+$$
+示例
+$$
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+k & z_k & e_{MEA_{k}} & \hat{x}_k & K_k & e_{EST_{k}}\\
+\hline
+0 & & & 40 & & 5 \\\hline
+1 & 51 & 3 & 46.88 & 0.625 & 5 \\\hline
+2 & 48 & 3 & 47.31 & 0.385 & 5 \\\hline
+3 & 47 & 3 & 47.22 & & 5 \\\hline
+4 & 52 & 3 & 48.26 & & 5 \\\hline
+5 & 51 & 3 & 48.75 & & 5 \\\hline
+6 & 48 & 3 & 48.64 & & 5 \\\hline
+7 & 49 & 3 & 48.68 & & 5 \\\hline
+8 & 53 & 3 & 4 & & 5 \\\hline
+9 & 48 & 3 & 40 & & 5 \\\hline
+10 & 49 & 3 & 40 & & 5 \\\hline
+11 & 52 & 3 & 40 & & 5 \\\hline
+12 & 53 & 3 & 40 & & 5 \\\hline
+13 & 51 & 3 & 40 & & 5 \\\hline
+14 & 52 & 3 & 40 & & 5 \\\hline
+15 & 49 & 3 & 40 & & 5 \\\hline
+16 & 50 & 3 & 40 & & 5 \\\hline
+\end{array}
+$$

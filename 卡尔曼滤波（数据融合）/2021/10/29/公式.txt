@@ -1,0 +1,30 @@
+核心公式
+\hat{z}=z_1+K(z_2-z_1)\space\space\space\space\space K \in [0,1]
+
+推导公式
+\begin{aligned}
+通过&求解K使得标准差\sigma_{\hat{z}}最小，即方差\sigma^2_{\hat{z}}最小\\
+\sigma^2_{\hat{z}} &= \sigma^2(z_1+K(z_2-z_1))\\
+&= \sigma^2((1-K)z_1+Kz_2)\\
+&= \sigma^2((1-K)z_1)+\sigma^2(Kz_2)\space\space\space\space\space由于z_1、z_2独立\\
+&= (1-K)^2\sigma^2_{z_1}+K^2\sigma^2_{z_2}\\\\
+由于&\sigma^2_{z_1}、\sigma^2_{z_2}为两个独立系统的测量误差分布，独立且已知\\
+要使&\sigma^2_{\hat{z}}最小，需将其对K求导，令导数等于0即可求出极值\\\\
+\frac{d\sigma^2_{\hat{z}}}{dK} &= -2(1-K)\sigma^2_{z_1}+2K\sigma^2_{z_2} = 0\\\\
+对K&求解可得:\\\\
+K &= \frac{\sigma^2_{z_1}}{\sigma^2_{z_1}+\sigma^2_{z_2}}
+\end{aligned}
+
+例子
+\begin{aligned}
+&两把尺子同时测量一个物体长度，\\
+&第一把尺子测量数据z_1为30cm，尺子的标准差\sigma_{z_1}为2cm,\\
+&第二把尺子测量数据z_2为32cm，尺子的标准差\sigma_{z_2}为4cm,\\
+&求估计真实值\hat{z}\\\\
+
+&求K:\\
+&K = \frac{\sigma^2_{z_1}}{\sigma^2_{z_1}+\sigma^2_{z_2}} = \frac{2^2}{2^2+4^2} = 0.2\\\\
+&\hat{z}=z_1+K(z_2-z_1) = 30+0.2*(32-30)=30.4\\\\
+&\sigma^2_{\hat{z}}= (1-K)^2\sigma^2_{z_1}+K^2\sigma^2_{z_2} = (1-0.2)^2*2^2+0.2^2*4^2 = 3.2\\\\
+&\sigma_{\hat{z}}= \sqrt{3.2} \approx 1.789
+\end{aligned}
