@@ -24,7 +24,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://540060348.github.io/null">
 <meta property="article:published_time" content="2021-07-26T11:25:16.000Z">
-<meta property="article:modified_time" content="2021-08-04T12:33:44.606Z">
+<meta property="article:modified_time" content="2022-01-10T13:55:20.673Z">
 <meta property="article:author" content="战麟">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="ROS">
@@ -160,7 +160,7 @@
                     <i class="fa fa-edit"></i> 
                     
                     
-                        ~2.38K
+                        ~2.62K
                     
                     字
                 </li>
@@ -169,7 +169,7 @@
         </header>
         <div class="kratos-post-content">
             <div id="expire-alert" class="alert alert-warning hidden" role="alert">
-                本文最后编辑于 <time datetime="1628080424606"></time> 前，其中的内容可能需要更新。
+                本文最后编辑于 <time datetime="1641822920673"></time> 前，其中的内容可能需要更新。
             </div>
             
             <hr />
@@ -182,9 +182,7 @@
 <li><a href="#%E5%AE%89%E8%A3%85ros">安装ROS</a><ul>
 <li><a href="#%E6%9B%B4%E6%96%B0%E5%AE%89%E8%A3%85%E5%88%97%E8%A1%A8">更新安装列表</a></li>
 <li><a href="#%E5%AE%89%E8%A3%85ros">安装ros</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85python-rosdep2">安装python-rosdep2</a></li>
 <li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96rosdep">初始化rosdep</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85python-rosinstall">安装python-rosinstall</a></li>
 </ul>
 </li>
 <li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96">初始化</a><ul>
@@ -211,26 +209,27 @@
 
 <h2><span id="安装ros">安装ROS</span></h2><h3><span id="更新安装列表">更新安装列表</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
 
-<h3><span id="安装ros">安装ros</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br><span class="line">sudo apt-get install ros-melodic-rqt*</span><br></pre></td></tr></table></figure>
-
-<h3><span id="安装python-rosdep2">安装python-rosdep2</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python-rosdep2</span><br></pre></td></tr></table></figure>
+<h3><span id="安装ros">安装ros</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br><span class="line">sudo apt-get install ros-melodic-rqt*</span><br><span class="line">sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential</span><br></pre></td></tr></table></figure>
 
 <h3><span id="初始化rosdep">初始化rosdep</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rosdep init</span><br></pre></td></tr></table></figure>
 
 <p>此时很大概率会出现</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERROR: cannot download default sources list from:</span><br><span class="line">https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/sources.list.d/20-default.list</span><br><span class="line">Website may be down.</span><br></pre></td></tr></table></figure>
 
-<p>需要以下指令尝试，基本都能解决</p>
-<ol>
-<li><p>修改hosts文件</p>
-<p>以管理员权限打开 <code>/etc/hosts</code> 文件,在文件最末端添加 <code>151.101.228.133 raw.githubusercontent.com</code> ，其中的IP需要修改为电脑ping <code>raw.github.com</code>的IP</p>
-</li>
-<li><p>修改证书</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo c_rehash /etc/ssl/certs</span><br></pre></td></tr></table></figure></li>
-<li><p>修改网络，换手机热点或其他</p>
-</li>
-</ol>
-<h3><span id="安装python-rosinstall">安装python-rosinstall</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential</span><br></pre></td></tr></table></figure>
+<p>需要修改hosts文件，以管理员权限打开 <code>/etc/hosts</code> 文件,在文件最末端添加 <code>151.101.228.133 raw.githubusercontent.com</code> ，其中的IP需要修改为电脑ping <code>raw.github.com</code>的IP</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosdep update</span><br></pre></td></tr></table></figure>
+
+<p>此时很大概率会失败，需要离线安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ros/rosdistro.git</span><br><span class="line">sudo cp -r ./rosdistro/ /etc/ros/</span><br></pre></td></tr></table></figure>
+
+<p>修改 <code>/etc/ros/rosdep/20-default.list</code> 文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># os-specific listings first</span></span><br><span class="line"><span class="string">yaml</span> <span class="string">file:///etc/ros/rosdistro/rosdep/osx-homebrew.yaml</span> <span class="string">osx</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># generic</span></span><br><span class="line"><span class="string">yaml</span> <span class="string">file:///etc/ros/rosdistro/rosdep/base.yaml</span></span><br><span class="line"><span class="string">yaml</span> <span class="string">file:///etc/ros/rosdistro/rosdep/python.yaml</span></span><br><span class="line"><span class="string">yaml</span> <span class="string">file:///etc/ros/rosdistro/rosdep/ruby.yaml</span></span><br><span class="line"><span class="string">gbpdistro</span> <span class="string">file:///etc/ros/rosdistro/releases/fuerte.yaml</span> <span class="string">fuerte</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># newer distributions (Groovy, Hydro, ...) must not be listed anymore, they are being fetched from the rosdistro index.yaml instead</span></span><br></pre></td></tr></table></figure>
+
+<p>修改 <code>/usr/lib/python2.7/dist-packages/rosdistro/__init__.py</code> 文件，修改内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEFAULT_INDEX_URL = <span class="string">&#x27;file:///etc/ros/rosdistro/index-v4.yaml&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>修改完文件后，重新update</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosdep update</span><br></pre></td></tr></table></figure>
 
 <h2><span id="初始化">初始化</span></h2><h3><span id="加载环境">加载环境</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /opt/ros/melodic/setup.bash</span><br></pre></td></tr></table></figure>
 
@@ -243,14 +242,7 @@
 <h3><span id="设置环境变量">设置环境变量</span></h3><p>打开 <code>gedit ~/.bashrc</code> 文件，在文件末端添加以下代码</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set ROS melodic</span></span><br><span class="line"><span class="built_in">source</span> /opt/ros/melodic/setup.bash</span><br><span class="line"><span class="built_in">source</span> ~/catkin_ws/devel/setup.bash</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Set ROS Network</span></span><br><span class="line"><span class="built_in">export</span> ROS_HOSTNAME=127.0.0.1</span><br><span class="line"><span class="built_in">export</span> ROS_MASTER_URI=http://<span class="variable">$&#123;ROS_HOSTNAME&#125;</span>:11311</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Set ROS alias command 快捷指令</span></span><br><span class="line"><span class="built_in">alias</span> cw=<span class="string">&#x27;cd ~/catkin_ws&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> cs=<span class="string">&#x27;cd ~/catkin_ws/src&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> cm=<span class="string">&#x27;cd ~/catkin_ws &amp;&amp; catkin_make&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<h2><span id="ros测试">ROS测试</span></h2><p>终端运行 <code>roscore</code> 将会出现错误</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Command <span class="string">&#x27;roscore&#x27;</span> not found, but can be installed with:</span><br><span class="line">sudo apt install python-roslaunch</span><br></pre></td></tr></table></figure>
-
-<p>原因为刚才安装python-rosdep2时卸载了一些包，导致ros-melodic-desktop-full不完整，需要重新安装</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-melodic-desktop-full</span><br><span class="line">sudo apt-get install ros-melodic-rqt*</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：</strong> 安装ros-melodic-desktop-full时也会卸载python-rosdep2，所以在ros-melodic-desktop-full前安装python-rosdep2无效</p>
-<h3><span id="运行rosdemo">运行ROSdemo</span></h3><p>打开三个控制台，分别运行下列各行代码</p>
+<h2><span id="ros测试">ROS测试</span></h2><h3><span id="运行rosdemo">运行ROSdemo</span></h3><p>打开三个控制台，分别运行下列各行代码</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br><span class="line">rosrun turtlesim turtlesim_node</span><br><span class="line">rosrun turtlesim turtle_teleop_key</span><br></pre></td></tr></table></figure>
 
 <p>将会出现小乌龟界面，且通过键盘上的方向键可以控制小乌龟移动</p>
@@ -342,7 +334,7 @@
                     <a class="tag-none-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/ROS/" rel="tag">ROS</a>, <a class="tag-none-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a>
                 </div>
                 <div class="pull-date">
-                <span>最后编辑：2021-08-04</span>
+                <span>最后编辑：2022-01-10</span>
                 </div>
             </div>
         </footer>
@@ -398,7 +390,7 @@
   <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
     <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
       <div class="tag-clouds">
-        <a href="/tags/Aircrack-ng/" style="font-size: 0.6em;">Aircrack-ng</a> <a href="/tags/Hexo/" style="font-size: 0.73em;">Hexo</a> <a href="/tags/Linux/" style="font-size: 0.8em;">Linux</a> <a href="/tags/Python/" style="font-size: 0.67em;">Python</a> <a href="/tags/Qt/" style="font-size: 0.6em;">Qt</a> <a href="/tags/ROS/" style="font-size: 0.77em;">ROS</a> <a href="/tags/Tensorflow/" style="font-size: 0.63em;">Tensorflow</a> <a href="/tags/Typora/" style="font-size: 0.6em;">Typora</a> <a href="/tags/Ubuntu/" style="font-size: 0.7em;">Ubuntu</a> <a href="/tags/VM/" style="font-size: 0.63em;">VM</a> <a href="/tags/WIN10/" style="font-size: 0.63em;">WIN10</a> <a href="/tags/Wifi%E7%A0%B4%E8%A7%A3/" style="font-size: 0.6em;">Wifi破解</a> <a href="/tags/git/" style="font-size: 0.6em;">git</a> <a href="/tags/samba/" style="font-size: 0.6em;">samba</a> <a href="/tags/%E4%B8%B2%E5%8F%A3/" style="font-size: 0.6em;">串口</a> <a href="/tags/%E5%8D%8F%E8%AE%AE%E8%A7%A3%E6%9E%90/" style="font-size: 0.6em;">协议解析</a> <a href="/tags/%E5%A5%BD%E7%89%A9%E6%8E%A8%E8%8D%90/" style="font-size: 0.6em;">好物推荐</a> <a href="/tags/%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/" style="font-size: 0.63em;">开关电源</a>
+        <a href="/tags/Aircrack-ng/" style="font-size: 0.6em;">Aircrack-ng</a> <a href="/tags/Hexo/" style="font-size: 0.73em;">Hexo</a> <a href="/tags/Linux/" style="font-size: 0.8em;">Linux</a> <a href="/tags/Python/" style="font-size: 0.67em;">Python</a> <a href="/tags/Qt/" style="font-size: 0.6em;">Qt</a> <a href="/tags/ROS/" style="font-size: 0.77em;">ROS</a> <a href="/tags/Tensorflow/" style="font-size: 0.63em;">Tensorflow</a> <a href="/tags/Typora/" style="font-size: 0.6em;">Typora</a> <a href="/tags/Ubuntu/" style="font-size: 0.7em;">Ubuntu</a> <a href="/tags/VM/" style="font-size: 0.63em;">VM</a> <a href="/tags/WIN10/" style="font-size: 0.63em;">WIN10</a> <a href="/tags/Wifi%E7%A0%B4%E8%A7%A3/" style="font-size: 0.6em;">Wifi破解</a> <a href="/tags/git/" style="font-size: 0.6em;">git</a> <a href="/tags/samba/" style="font-size: 0.6em;">samba</a> <a href="/tags/%E4%B8%B2%E5%8F%A3/" style="font-size: 0.6em;">串口</a> <a href="/tags/%E5%8D%8F%E8%AE%AE%E8%A7%A3%E6%9E%90/" style="font-size: 0.6em;">协议解析</a> <a href="/tags/%E5%A5%BD%E7%89%A9%E6%8E%A8%E8%8D%90/" style="font-size: 0.63em;">好物推荐</a> <a href="/tags/%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/" style="font-size: 0.63em;">开关电源</a>
       </div>
   </aside>
 
@@ -409,6 +401,12 @@
   <div class="tab-content">
       <ul class="list-group">
         
+        
+          
+          
+            <a class="list-group-item" href="/Linux%E4%B8%8B%E7%9A%84%E8%B6%85%E7%BA%A7%E7%BB%88%E7%AB%AFterminator/2022/01/08/"><i class="fa  fa-book"></i> Linux下的超级终端terminator</a>
+            
+          
         
           
           
@@ -435,11 +433,7 @@
           
         
           
-          
-            <a class="list-group-item" href="/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%AC%AC1%E7%AB%A0-%E7%AC%AC5%E8%8A%82-%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8C%89%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E5%B1%95%E5%BC%80/2021/11/21/"><i class="fa  fa-book"></i> 线性代数-第1章-第5节-行列式按行（列）展开</a>
             
-          
-        
           
             
           
